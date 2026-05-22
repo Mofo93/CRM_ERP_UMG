@@ -8,6 +8,7 @@ namespace CRM_ERP_UMG.Controllers
     [Authorize(Roles = "Admin,Editor,Vendedor")]
     public class ClientesController : Controller
     {
+
         private readonly ContextoSistema contexto;
         public ClientesController(ContextoSistema contexto)
         {
