@@ -1,22 +1,100 @@
 @model Cliente
-<h2>Nuevo cliente</h2>
-<form asp-action="Crear" method="post" class="card shadow-sm p-4">
-<div class="mb-3">
-<label class="form-label">NIT</label>
-<input asp-for="Nit" class="form-control" value="CF" />
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header text-white rounded-top-4"
+                     style="background: linear-gradient(135deg, #36b9cc, #1a8a9e);">
+
+                    <h2 class="fw-bold m-0">
+                        <i class="bi bi-person-plus-fill me-2"></i>
+                        Nuevo Cliente
+                    </h2>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form asp-action="Crear" method="post">
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                NIT
+                            </label>
+
+                            <input asp-for="Nit"
+                                   class="form-control rounded-3 shadow-sm"
+                                   value="CF" />
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Nombre
+                            </label>
+
+                            <input asp-for="Nombre"
+                                   class="form-control rounded-3 shadow-sm"
+                                   required />
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Teléfono
+                            </label>
+
+                            <input asp-for="Telefono"
+                                   class="form-control rounded-3 shadow-sm" />
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Dirección
+                            </label>
+
+                            <input asp-for="Direccion"
+                                   class="form-control rounded-3 shadow-sm" />
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button class="btn btn-success px-4 rounded-pill shadow-sm"
+                                    type="submit">
+
+                                <i class="bi bi-check-circle me-1"></i>
+                                Guardar
+
+                            </button>
+
+                            <a class="btn btn-secondary px-4 rounded-pill shadow-sm"
+                               asp-action="Index">
+
+                                Cancelar
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<div class="mb-3">
-<label class="form-label">Nombre</label>
-<input asp-for="Nombre" class="form-control" required />
-</div>
-<div class="mb-3">
-<label class="form-label">Teléfono</label>
-<input asp-for="Telefono" class="form-control" />
-</div>
-<div class="mb-3">
-<label class="form-label">Dirección</label>
-<input asp-for="Direccion" class="form-control" />
-</div>
-<button class="btn btn-primary" type="submit">Guardar</button>
-<a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>

@@ -1,34 +1,161 @@
 @model LoginVista
-<div class="row justify-content-center">
-<div class="col-md-5">
-<div class="card shadow">
-<div class="card-header bg-dark text-white">
-<h4 class="mb-0">Ingreso al sistema</h4>
-</div>
-<div class="card-body">
-<form asp-action="Login" method="post">
-<input type="hidden" asp-for="ReturnUrl" />
-<div asp-validation-summary="ModelOnly" class="text-danger
-mb-3"></div>
-<div class="mb-3">
-<label asp-for="Email" class="form-label">Correo</label>
-<input asp-for="Email" class="form-control" />
-</div>
-<div class="mb-3">
-<label asp-for="Password" class="form-label">Contraseña</label>
-<input asp-for="Password" class="form-control" />
-</div>
-<button class="btn btn-primary w-100"
-type="submit">Ingresar</button>
-</form>
-<hr />
-<div class="small text-muted">
-Usuario inicial:<br />
-<strong>admin@umg.com</strong><br />
-Contraseña:<br />
-<strong>Admin123*</strong>
-</div>
-</div>
-</div>
-</div>
+
+<div class="container">
+
+    <div class="row justify-content-center align-items-center"
+         style="min-height: 90vh;">
+
+        <div class="col-md-5 col-lg-4">
+
+            <div class="card border-0 shadow-lg rounded-5 overflow-hidden"
+                 style="background-color: #fffafd;">
+
+                <!-- HEADER -->
+                <div class="text-center text-white p-5"
+                     style="background: linear-gradient(135deg, #7b2cbf, #d63384);">
+
+                    <div class="mb-3">
+
+                        <div class="d-inline-flex justify-content-center align-items-center rounded-circle shadow"
+                             style="width: 90px;
+                                    height: 90px;
+                                    background: rgba(255,255,255,0.18);
+                                    backdrop-filter: blur(6px);">
+
+                            <i class="bi bi-gem"
+                               style="font-size: 42px;"></i>
+
+                        </div>
+
+                    </div>
+
+                    <h2 class="fw-bold mb-1" style="color:white;">
+                        CRM ERP UMG
+                    </h2>
+
+                    <p class="mb-0 opacity-75">
+                        Bienvenido nuevamente
+                    </p>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <form asp-action="Login" method="post">
+
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="alert alert-danger rounded-4 border-0 shadow-sm">
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="mb-4">
+
+                            <label asp-for="Email"
+                                   class="form-label fw-semibold text-dark">
+
+                                Correo electrónico
+
+                            </label>
+
+                            <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                <span class="input-group-text border-0 px-4"
+                                      style="background-color: #f3e8f8;">
+
+                                    <i class="bi bi-envelope-fill"
+                                       style="color: #7b2cbf;"></i>
+
+                                </span>
+
+                                <input asp-for="Email"
+                                       class="form-control border-0 py-3"
+                                       style="background-color: #faf6fb;"
+                                       placeholder="correo@ejemplo.com" />
+
+                            </div>
+
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div class="mb-4">
+
+                            <label asp-for="Password"
+                                   class="form-label fw-semibold text-dark">
+
+                                Contraseña
+
+                            </label>
+
+                            <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                <span class="input-group-text border-0 px-4"
+                                      style="background-color: #f3e8f8;">
+
+                                    <i class="bi bi-lock-fill"
+                                       style="color: #d63384;"></i>
+
+                                </span>
+
+                                <input asp-for="Password"
+                                       type="password"
+                                       class="form-control border-0 py-3"
+                                       style="background-color: #faf6fb;"
+                                       placeholder="••••••••" />
+
+                            </div>
+
+                        </div>
+
+                        <!-- BOTON -->
+                        <button class="btn w-100 text-white fw-semibold py-3 rounded-4 shadow-sm border-0"
+                                type="submit"
+                                style="background: linear-gradient(135deg, #7b2cbf, #d63384);
+                                       font-size: 16px;">
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+                            Ingresar al sistema
+
+                        </button>
+
+                    </form>
+
+                    <!-- USUARIO DEMO -->
+                    <div class="mt-4">
+
+                        <div class="rounded-4 p-4 text-center"
+                             style="background-color: #f8f0fa;">
+
+                            <small class="text-muted d-block mb-2">
+                                Usuario de prueba
+                            </small>
+
+                            <div class="fw-semibold"
+                                 style="color: #5a189a;">
+
+                                admin@umg.com
+
+                            </div>
+
+                            <div class="fw-bold"
+                                 style="color: #d63384;">
+
+                                Admin123*
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
