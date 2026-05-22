@@ -1,114 +1,480 @@
 @{
-var modulo = (ModuloDinamico)ViewBag.Modulo;
+    var modulo = (ModuloDinamico)ViewBag.Modulo;
 }
-<h2>Crear operación para @modulo.NombreModulo</h2>
-<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-<form asp-action="Crear" method="post" class="card shadow-sm p-4">
-<input type="hidden" name="moduloId" value="@modulo.Id" />
-<div class="mb-3">
-<label class="form-label">Nombre de la operación</label>
-<input name="nombreOperacion"
-class="form-control"
-placeholder="Ejemplo: Reporte de ventas con IVA"
-required />
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-5">
+
+        <h1 class="fw-bold mb-2"
+            style="
+                color: #4b3a30;
+                font-size: 38px;">
+
+            Crear Operación
+
+        </h1>
+
+        <p style="
+                color: #8b735f;
+                font-size: 15px;">
+
+            Configuración de operaciones dinámicas para el módulo
+            <span class="fw-semibold">@modulo.NombreModulo</span>
+
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-11">
+
+            <!-- ALERTAS -->
+            <div asp-validation-summary="ModelOnly"
+                 class="alert border-0 rounded-4 shadow-sm mb-4"
+                 style="
+                    background-color: #fff0f0;
+                    color: #9d0208;">
+            </div>
+
+            <!-- CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="background-color: #fffaf5;">
+
+                <!-- TOP -->
+                <div class="px-5 py-4"
+                     style="
+                        background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                    <div class="d-flex align-items-center">
+
+                        <!-- ICON -->
+                        <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                             style="
+                                width: 75px;
+                                height: 75px;
+                                background: rgba(255,255,255,0.15);">
+
+                            <i class="bi bi-diagram-3-fill"
+                               style="
+                                    font-size: 32px;
+                                    color: white;"></i>
+
+                        </div>
+
+                        <!-- TEXT -->
+                        <div>
+
+                            <h2 class="fw-bold text-white mb-1">
+
+                                Nueva Operación
+
+                            </h2>
+
+                            <span style="color: #f5ebe0;">
+
+                                Configura cálculos, columnas y fórmulas dinámicas
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <form asp-action="Crear" method="post">
+
+                        <input type="hidden"
+                               name="moduloId"
+                               value="@modulo.Id" />
+
+                        <!-- NOMBRE -->
+                        <div class="mb-5">
+
+                            <label class="form-label fw-semibold mb-2"
+                                   style="color: #5c4435;">
+
+                                Nombre de la operación
+
+                            </label>
+
+                            <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                <span class="input-group-text border-0 px-4"
+                                      style="background-color: #efe3d8;">
+
+                                    <i class="bi bi-pencil-square"
+                                       style="color: #9c6644;"></i>
+
+                                </span>
+
+                                <input name="nombreOperacion"
+                                       class="form-control border-0 py-3"
+                                       style="
+                                            background-color: #fffdfb;
+                                            color: #4b3a30;"
+                                       placeholder="Ejemplo: Reporte de ventas con IVA"
+                                       required />
+
+                            </div>
+
+                        </div>
+
+                        <!-- COLUMNAS -->
+                        <div class="mb-5">
+
+                            <div class="d-flex align-items-center mb-4">
+
+                                <div class="rounded-4 d-flex justify-content-center align-items-center me-3"
+                                     style="
+                                        width: 55px;
+                                        height: 55px;
+                                        background-color: #efe3d8;">
+
+                                    <i class="bi bi-table"
+                                       style="
+                                            color: #9c6644;
+                                            font-size: 22px;"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h4 class="fw-bold mb-1"
+                                        style="color: #4b3a30;">
+
+                                        Columnas visibles
+
+                                    </h4>
+
+                                    <span style="color: #8b735f;">
+
+                                        Selecciona los campos que se mostrarán
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            @if (!modulo.EsquemaCampos.Any())
+                            {
+                                <div class="alert border-0 rounded-4 shadow-sm"
+                                     style="
+                                        background-color: #fff3cd;
+                                        color: #856404;">
+
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                                    Este módulo no tiene campos.
+                                    Primero agrega campos al módulo.
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row g-3">
+
+                                    @foreach (var campo in modulo.EsquemaCampos)
+                                    {
+                                        <div class="col-lg-4 col-md-6">
+
+                                            <div class="rounded-4 p-3 shadow-sm h-100"
+                                                 style="
+                                                    background-color: #f8f1eb;
+                                                    border: 1px solid #ead7c8;">
+
+                                                <div class="form-check">
+
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           name="columnasVisibles"
+                                                           value="@campo.Key"
+                                                           id="col_@campo.Key"
+                                                           checked />
+
+                                                    <label class="form-check-label ms-1"
+                                                           for="col_@campo.Key">
+
+                                                        <div class="fw-semibold"
+                                                             style="color: #4b3a30;">
+
+                                                            @campo.Value.Etiqueta
+
+                                                        </div>
+
+                                                        <small style="color: #8b735f;">
+
+                                                            @campo.Key
+
+                                                        </small>
+
+                                                    </label>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- FORMULAS -->
+                        <div class="mb-5">
+
+                            <div class="d-flex align-items-center mb-4">
+
+                                <div class="rounded-4 d-flex justify-content-center align-items-center me-3"
+                                     style="
+                                        width: 55px;
+                                        height: 55px;
+                                        background-color: #efe3d8;">
+
+                                    <i class="bi bi-calculator-fill"
+                                       style="
+                                            color: #9c6644;
+                                            font-size: 22px;"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h4 class="fw-bold mb-1"
+                                        style="color: #4b3a30;">
+
+                                        Fórmulas dinámicas
+
+                                    </h4>
+
+                                    <span style="color: #8b735f;">
+
+                                        Usa nombres internos para realizar cálculos
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <!-- INFO -->
+                            <div class="rounded-4 p-4 mb-4"
+                                 style="
+                                    background-color: #f8f1eb;
+                                    border: 1px solid #ead7c8;">
+
+                                <div class="fw-semibold mb-2"
+                                     style="color: #6b4f3f;">
+
+                                    Ejemplo de fórmula
+
+                                </div>
+
+                                <code style="
+                                        color: #9c6644;
+                                        font-size: 14px;">
+
+                                    precio_unitario * cantidad
+
+                                </code>
+
+                            </div>
+
+                            <!-- CONTENEDOR -->
+                            <div id="contenedorFormulas">
+
+                                <!-- FORMULA 1 -->
+                                <div class="row g-3 mb-3">
+
+                                    <div class="col-md-4">
+
+                                        <input name="nombresFormula"
+                                               class="form-control border-0 shadow-sm py-3 rounded-4"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;"
+                                               placeholder="subtotal" />
+
+                                    </div>
+
+                                    <div class="col-md-8">
+
+                                        <input name="expresionesFormula"
+                                               class="form-control border-0 shadow-sm py-3 rounded-4"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;"
+                                               placeholder="precio_unitario * cantidad" />
+
+                                    </div>
+
+                                </div>
+
+                                <!-- FORMULA 2 -->
+                                <div class="row g-3 mb-3">
+
+                                    <div class="col-md-4">
+
+                                        <input name="nombresFormula"
+                                               class="form-control border-0 shadow-sm py-3 rounded-4"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;"
+                                               placeholder="iva" />
+
+                                    </div>
+
+                                    <div class="col-md-8">
+
+                                        <input name="expresionesFormula"
+                                               class="form-control border-0 shadow-sm py-3 rounded-4"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;"
+                                               placeholder="subtotal * 0.12" />
+
+                                    </div>
+
+                                </div>
+
+                                <!-- FORMULA 3 -->
+                                <div class="row g-3 mb-3">
+
+                                    <div class="col-md-4">
+
+                                        <input name="nombresFormula"
+                                               class="form-control border-0 shadow-sm py-3 rounded-4"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;"
+                                               placeholder="total" />
+
+                                    </div>
+
+                                    <div class="col-md-8">
+
+                                        <input name="expresionesFormula"
+                                               class="form-control border-0 shadow-sm py-3 rounded-4"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;"
+                                               placeholder="subtotal + iva" />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- BOTON AGREGAR -->
+                            <button type="button"
+                                    onclick="agregarFormula()"
+                                    class="btn mt-3 px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+                                    style="
+                                        background-color: #ede0d4;
+                                        color: #6b4f3f;">
+
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Agregar otra fórmula
+
+                            </button>
+
+                        </div>
+
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-5">
+
+                            <a asp-controller="Modulos"
+                               asp-action="Detalle"
+                               asp-route-id="@modulo.Id"
+                               class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+                               style="
+                                    background-color: #ede0d4;
+                                    color: #6b4f3f;">
+
+                                <i class="bi bi-arrow-left-circle me-2"></i>
+                                Cancelar
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                    style="
+                                        background: linear-gradient(135deg, #b08968, #7f5539);
+                                        color: white;">
+
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Guardar Operación
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<div class="mb-4">
-<h5>Columnas visibles</h5>
-@if (!modulo.EsquemaCampos.Any())
-{
-<div class="alert alert-warning">
-Este módulo no tiene campos. Primero agrega campos al módulo.
-</div>
-}
-else
-{
-@foreach (var campo in modulo.EsquemaCampos)
-{
-<div class="form-check">
-<input class="form-check-input"
-type="checkbox"
-name="columnasVisibles"
-value="@campo.Key"
-id="col_@campo.Key"
-checked />
-<label class="form-check-label" for="col_@campo.Key">
-@campo.Value.Etiqueta <code>@campo.Key</code>
-</label>
-</div>
-}
-}
-</div>
-<div class="mb-4">
-<h5>Fórmulas</h5>
-<p class="text-muted">
-Usa los nombres internos de los campos.
-Ejemplo: <code>precio_unitario * cantidad</code>
-</p>
-<div id="contenedorFormulas">
-<div class="row mb-2">
-<div class="col-md-4">
-<input name="nombresFormula" class="form-control"
-placeholder="subtotal" />
-</div>
-<div class="col-md-8">
-<input name="expresionesFormula" class="form-control"
-placeholder="precio_unitario * cantidad" />
-</div>
-</div>
-<div class="row mb-2">
-<div class="col-md-4">
-<input name="nombresFormula" class="form-control" placeholder="iva"
-/>
-</div>
-<div class="col-md-8">
-<input name="expresionesFormula" class="form-control"
-placeholder="subtotal * 0.12" />
-</div>
-</div>
-<div class="row mb-2">
-<div class="col-md-4">
-<input name="nombresFormula" class="form-control"
-placeholder="total" />
-</div>
-<div class="col-md-8">
-<input name="expresionesFormula" class="form-control"
-placeholder="subtotal + iva" />
-</div>
-</div>
-</div>
-<button type="button"
-class="btn btn-outline-secondary btn-sm"
-onclick="agregarFormula()">
-Agregar otra fórmula
-</button>
-</div>
-<button class="btn btn-primary" type="submit">
-Guardar operación
-</button>
-<a class="btn btn-secondary"
-asp-controller="Modulos"
-asp-action="Detalle"
-asp-route-id="@modulo.Id">
-Cancelar
-</a>
-</form>
+
 @section Scripts {
+
 <script>
-function agregarFormula() {
-const contenedor = document.getElementById("contenedorFormulas");
-const fila = document.createElement("div");
-fila.className = "row mb-2";
-fila.innerHTML = `
-<div class="col-md-4">
-<input name="nombresFormula" class="form-control"
-placeholder="nombre_resultado" />
-</div>
-<div class="col-md-8">
-<input name="expresionesFormula" class="form-control"
-placeholder="campo1 + campo2" />
-</div>
-`;
-contenedor.appendChild(fila);
-}
+
+    function agregarFormula() {
+
+        const contenedor =
+            document.getElementById("contenedorFormulas");
+
+        const fila =
+            document.createElement("div");
+
+        fila.className = "row g-3 mb-3";
+
+        fila.innerHTML = `
+
+            <div class="col-md-4">
+
+                <input name="nombresFormula"
+                       class="form-control border-0 shadow-sm py-3 rounded-4"
+                       style="
+                            background-color: #fffdfb;
+                            color: #4b3a30;"
+                       placeholder="nombre_resultado" />
+
+            </div>
+
+            <div class="col-md-8">
+
+                <input name="expresionesFormula"
+                       class="form-control border-0 shadow-sm py-3 rounded-4"
+                       style="
+                            background-color: #fffdfb;
+                            color: #4b3a30;"
+                       placeholder="campo1 + campo2" />
+
+            </div>
+
+        `;
+
+        contenedor.appendChild(fila);
+
+    }
+
 </script>
+
 }

@@ -1,54 +1,299 @@
 @model List<RegistroDinamico>
+
 @{
-var modulo = (ModuloDinamico)ViewBag.Modulo;
+    var modulo = (ModuloDinamico)ViewBag.Modulo;
 }
-<div class="d-flex justify-content-between align-items-center mb-3">
-<h2>Registros: @modulo.NombreModulo</h2>
-@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
-{
-<a class="btn btn-primary" asp-action="Crear"
-asp-route-moduloId="@modulo.Id">Nuevo registro</a>
-}
-</div>
-<div class="card shadow-sm">
-<div class="card-body table-responsive">
-<table class="table table-striped table-hover">
-<thead class="table-dark">
-<tr>
-@foreach (var campo in modulo.EsquemaCampos)
-{
-<th>@campo.Value.Etiqueta</th>
-}
-<th>Fecha</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-@foreach (var registro in Model)
-{
-<tr>
-@foreach (var campo in modulo.EsquemaCampos)
-{
-<td>@(registro.Datos.ContainsKey(campo.Key) ?
-registro.Datos[campo.Key] : "")</td>
-}
-<td>@registro.FechaCreacion.ToLocalTime()</td>
-<td>
-@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
-{
-<a class="btn btn-sm btn-warning" asp-action="Editar"
-asp-route-id="@registro.Id">Editar</a>
-<form asp-action="Eliminar" method="post" class="d-inline"
-onsubmit="return confirm('¿Eliminar registro?');">
-<input type="hidden" name="id" value="@registro.Id" />
-<button class="btn btn-sm btn-danger"
-type="submit">Eliminar</button>
-</form>
-}
-</td>
-</tr>
-}
-</tbody>
-</table>
-</div>
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+
+        <div>
+
+            <h1 class="fw-bold mb-2"
+                style="
+                    color: #4b3a30;
+                    font-size: 38px;">
+
+                Registros
+
+            </h1>
+
+            <p class="mb-0"
+               style="
+                    color: #8b735f;
+                    font-size: 15px;">
+
+                Administración de registros del módulo
+                <span class="fw-semibold">
+                    @modulo.NombreModulo
+                </span>
+
+            </p>
+
+        </div>
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+        {
+            <a asp-action="Crear"
+               asp-route-moduloId="@modulo.Id"
+               class="btn border-0 px-4 py-3 rounded-4 fw-semibold shadow-lg"
+               style="
+                    background: linear-gradient(135deg, #b08968, #7f5539);
+                    color: white;
+                    min-width: 220px;">
+
+                <i class="bi bi-plus-circle-fill me-2"></i>
+                Nuevo Registro
+
+            </a>
+        }
+
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+         style="
+            background-color: #fffaf5;">
+
+        <!-- HEADER -->
+        <div class="px-5 py-4 d-flex justify-content-between align-items-center flex-wrap gap-3"
+             style="
+                background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+            <div class="d-flex align-items-center">
+
+                <!-- ICON -->
+                <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                     style="
+                        width: 70px;
+                        height: 70px;
+                        background: rgba(255,255,255,0.15);">
+
+                    <i class="bi bi-database-fill"
+                       style="
+                            font-size: 30px;
+                            color: white;"></i>
+
+                </div>
+
+                <!-- TEXT -->
+                <div>
+
+                    <h3 class="fw-bold text-white mb-1">
+
+                        Gestión de Registros
+
+                    </h3>
+
+                    <span style="color: #f5ebe0;">
+
+                        Visualización dinámica de información
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- COUNT -->
+            <div class="text-end">
+
+                <div class="fw-bold"
+                     style="
+                        color: white;
+                        font-size: 38px;">
+
+                    @Model.Count
+
+                </div>
+
+                <small style="color: #f5ebe0;">
+
+                    Registros activos
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- BODY -->
+        <div class="p-4">
+
+            @if (!Model.Any())
+            {
+                <div class="alert border-0 rounded-4 shadow-sm px-4 py-4"
+                     style="
+                        background-color: #f8ede3;
+                        color: #7f5539;">
+
+                    <div class="d-flex align-items-center">
+
+                        <i class="bi bi-exclamation-circle-fill me-3"
+                           style="font-size: 28px;"></i>
+
+                        <div>
+
+                            <div class="fw-bold mb-1">
+                                No existen registros
+                            </div>
+
+                            <div>
+                                Todavía no se han agregado registros para este módulo.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+
+                            <tr style="border-bottom: 1px solid #e9d8c9;">
+
+                                @foreach (var campo in modulo.EsquemaCampos)
+                                {
+                                    <th class="border-0 py-4"
+                                        style="
+                                            color: #7f5539;
+                                            font-size: 13px;
+                                            letter-spacing: 1px;">
+
+                                        @campo.Value.Etiqueta
+
+                                    </th>
+                                }
+
+                                <th class="border-0 py-4"
+                                    style="
+                                        color: #7f5539;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    FECHA
+
+                                </th>
+
+                                <th class="border-0 py-4 text-center"
+                                    style="
+                                        color: #7f5539;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    ACCIONES
+
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var registro in Model)
+                            {
+                                <tr style="
+                                        border-bottom: 1px solid #f1e6dc;
+                                        transition: 0.3s;">
+
+                                    @foreach (var campo in modulo.EsquemaCampos)
+                                    {
+                                        <td class="py-4"
+                                            style="
+                                                color: #4b3a30;
+                                                font-size: 15px;">
+
+                                            @(registro.Datos.ContainsKey(campo.Key)
+                                                ? registro.Datos[campo.Key]
+                                                : "")
+
+                                        </td>
+                                    }
+
+                                    <!-- FECHA -->
+                                    <td class="py-4">
+
+                                        <span class="px-3 py-2 rounded-pill fw-semibold"
+                                              style="
+                                                background-color: #ede0d4;
+                                                color: #7f5539;
+                                                font-size: 13px;">
+
+                                            @registro.FechaCreacion.ToLocalTime()
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- ACTIONS -->
+                                    <td class="py-4 text-center">
+
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                                        {
+                                            <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+                                                <!-- EDITAR -->
+                                                <a asp-action="Editar"
+                                                   asp-route-id="@registro.Id"
+                                                   class="btn btn-sm rounded-4 px-3 py-2 fw-semibold border-0 shadow-sm"
+                                                   style="
+                                                        background-color: #ddb892;
+                                                        color: #4b3a30;">
+
+                                                    <i class="bi bi-pencil-fill me-1"></i>
+                                                    Editar
+
+                                                </a>
+
+                                                <!-- ELIMINAR -->
+                                                <form asp-action="Eliminar"
+                                                      method="post"
+                                                      class="d-inline"
+                                                      onsubmit="return confirm('¿Eliminar registro?');">
+
+                                                    <input type="hidden"
+                                                           name="id"
+                                                           value="@registro.Id" />
+
+                                                    <button type="submit"
+                                                            class="btn btn-sm rounded-4 px-3 py-2 fw-semibold border-0 shadow-sm"
+                                                            style="
+                                                                background-color: #9c6644;
+                                                                color: white;">
+
+                                                        <i class="bi bi-trash-fill me-1"></i>
+                                                        Eliminar
+
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
 </div>

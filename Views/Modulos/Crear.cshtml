@@ -1,16 +1,225 @@
 @model ModuloDinamico
-<h2>Crear módulo</h2>
-<form asp-action="Crear" method="post" class="card shadow-sm p-4">
-<div class="mb-3">
-<label asp-for="NombreModulo" class="form-label">Nombre del
-módulo</label>
-<input asp-for="NombreModulo" class="form-control" placeholder="Ejemplo:
-Ventas, Clientes, Inventario" />
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-5">
+
+        <div class="d-flex align-items-center mb-3">
+
+            <div style="
+                    width: 6px;
+                    height: 55px;
+                    border-radius: 20px;
+                    background: linear-gradient(180deg, #b08968, #7f5539);">
+            </div>
+
+            <div class="ms-3">
+
+                <h1 class="fw-bold mb-1"
+                    style="
+                        color: #4b3a30;
+                        font-size: 38px;">
+
+                    Crear Módulo
+
+                </h1>
+
+                <p class="mb-0"
+                   style="
+                        color: #8b735f;
+                        font-size: 15px;">
+
+                    Configura un nuevo módulo dinámico dentro del sistema ERP
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <!-- CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="
+                    background-color: #fffaf5;
+                    border: 1px solid #f1e5dc;">
+
+                <!-- TOP -->
+                <div class="px-5 py-4"
+                     style="
+                        background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                    <div class="d-flex align-items-center">
+
+                        <!-- ICON -->
+                        <div class="rounded-4 d-flex justify-content-center align-items-center me-4 shadow-sm"
+                             style="
+                                width: 80px;
+                                height: 80px;
+                                background: rgba(255,255,255,0.15);
+                                backdrop-filter: blur(6px);">
+
+                            <i class="bi bi-grid-1x2-fill"
+                               style="
+                                    font-size: 34px;
+                                    color: white;"></i>
+
+                        </div>
+
+                        <!-- TEXT -->
+                        <div>
+
+                            <h2 class="fw-bold text-white mb-1">
+
+                                Nuevo Módulo
+
+                            </h2>
+
+                            <span style="
+                                    color: #f5ebe0;
+                                    font-size: 15px;">
+
+                                Organización y administración de módulos dinámicos
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <form asp-action="Crear" method="post">
+
+                        <div class="row g-4">
+
+                            <!-- NOMBRE -->
+                            <div class="col-12">
+
+                                <label asp-for="NombreModulo"
+                                       class="form-label fw-semibold mb-2"
+                                       style="
+                                            color: #5c4435;
+                                            font-size: 15px;">
+
+                                    Nombre del módulo
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="
+                                                background-color: #efe3d8;">
+
+                                        <i class="bi bi-box-fill"
+                                           style="
+                                                color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="NombreModulo"
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;
+                                                font-size: 15px;"
+                                           placeholder="Ejemplo: Ventas, Clientes, Inventario" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- DESCRIPCION -->
+                            <div class="col-12">
+
+                                <label asp-for="Descripcion"
+                                       class="form-label fw-semibold mb-2"
+                                       style="
+                                            color: #5c4435;
+                                            font-size: 15px;">
+
+                                    Descripción
+
+                                </label>
+
+                                <div class="shadow-sm rounded-4 overflow-hidden"
+                                     style="
+                                            border: 1px solid #f1e5dc;
+                                            background-color: #fffdfb;">
+
+                                    <div class="px-4 pt-3">
+
+                                        <i class="bi bi-card-text"
+                                           style="
+                                                color: #9c6644;
+                                                font-size: 18px;"></i>
+
+                                    </div>
+
+                                    <textarea asp-for="Descripcion"
+                                              rows="6"
+                                              class="form-control border-0 px-4 pb-4"
+                                              style="
+                                                    background-color: transparent;
+                                                    color: #4b3a30;
+                                                    resize: none;
+                                                    box-shadow: none;
+                                                    font-size: 15px;"
+                                              placeholder="Describe la función principal del módulo..."></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center mt-5 flex-wrap gap-3">
+
+                            <a asp-action="Index"
+                               class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+                               style="
+                                    background-color: #ede0d4;
+                                    color: #6b4f3f;
+                                    min-width: 180px;">
+
+                                <i class="bi bi-arrow-left-circle me-2"></i>
+                                Cancelar
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                    style="
+                                        background: linear-gradient(135deg, #b08968, #7f5539);
+                                        color: white;
+                                        min-width: 220px;">
+
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Guardar Módulo
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<div class="mb-3">
-<label asp-for="Descripcion" class="form-label">Descripción</label>
-<textarea asp-for="Descripcion" class="form-control"></textarea>
-</div>
-<button class="btn btn-primary" type="submit">Guardar</button>
-<a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>

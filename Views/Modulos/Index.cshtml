@@ -1,39 +1,256 @@
 @model List<ModuloDinamico>
-<div class="d-flex justify-content-between align-items-center mb-3">
-<h2>Módulos dinámicos</h2>
-@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
-{
-<a class="btn btn-primary" asp-action="Crear">Crear módulo</a>
-}
-</div>
-@if (TempData["Ok"] != null)
-{
-<div class="alert alert-success">@TempData["Ok"]</div>
-}
-@if (TempData["Error"] != null)
-{
-<div class="alert alert-danger">@TempData["Error"]</div>
-}
-<div class="row">
-@foreach (var modulo in Model)
-{
-<div class="col-md-4 mb-3">
-<div class="card shadow-sm h-100">
-<div class="card-body">
-<h5>@modulo.NombreModulo</h5>
-<p class="text-muted">@modulo.Descripcion</p>
-<p>
-<span class="badge
-bg-secondary">@modulo.EsquemaCampos.Count campos</span>
-</p>
-<a class="btn btn-sm btn-outline-primary" asp-action="Detalle"
-asp-route-id="@modulo.Id">Configurar</a>
-<a class="btn btn-sm btn-outline-success" asp-controller="Registros"
-asp-action="Index" asp-route-moduloId="@modulo.Id">Registros</a>
-<a class="btn btn-sm btn-outline-dark" asp-controller="Operaciones"
-asp-action="Index" asp-route-moduloId="@modulo.Id">Operaciones</a>
-</div>
-</div>
-</div>
-}
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+        <div>
+
+            <h1 class="fw-bold mb-2"
+                style="
+                    color: #4b3a30;
+                    font-size: 38px;">
+
+                Módulos Dinámicos
+
+            </h1>
+
+            <p class="mb-0"
+               style="
+                    color: #8b735f;
+                    font-size: 15px;">
+
+                Administración y configuración general de módulos del sistema ERP
+
+            </p>
+
+        </div>
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+        {
+            <a class="btn px-4 py-3 rounded-4 fw-semibold shadow-lg border-0"
+               asp-action="Crear"
+               style="
+                    background: linear-gradient(135deg, #b08968, #7f5539);
+                    color: white;
+                    min-width: 220px;">
+
+                <i class="bi bi-plus-circle-fill me-2"></i>
+                Crear módulo
+
+            </a>
+        }
+
+    </div>
+
+    <!-- ALERTAS -->
+    @if (TempData["Ok"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm mb-4"
+             style="
+                background-color: #edf7ed;
+                color: #3d6b45;">
+
+            <i class="bi bi-check-circle-fill me-2"></i>
+
+            @TempData["Ok"]
+
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm mb-4"
+             style="
+                background-color: #fdecec;
+                color: #8a3b3b;">
+
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+            @TempData["Error"]
+
+        </div>
+    }
+
+    <!-- CARDS -->
+    <div class="row g-4">
+
+        @foreach (var modulo in Model)
+        {
+            <div class="col-xl-4 col-lg-6">
+
+                <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100"
+                     style="
+                        background-color: #fffaf5;
+                        transition: 0.3s;">
+
+                    <!-- TOP -->
+                    <div class="p-4"
+                         style="
+                            background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <!-- ICON -->
+                            <div class="rounded-4 d-flex justify-content-center align-items-center shadow-sm"
+                                 style="
+                                    width: 65px;
+                                    height: 65px;
+                                    background: rgba(255,255,255,0.15);">
+
+                                <i class="bi bi-grid-1x2-fill"
+                                   style="
+                                        font-size: 28px;
+                                        color: white;"></i>
+
+                            </div>
+
+                            <!-- BADGE -->
+                            <span class="px-3 py-2 rounded-pill fw-semibold"
+                                  style="
+                                        background: rgba(255,255,255,0.15);
+                                        color: white;
+                                        font-size: 13px;">
+
+                                @modulo.EsquemaCampos.Count campos
+
+                            </span>
+
+                        </div>
+
+                        <!-- TITLE -->
+                        <div class="mt-4">
+
+                            <h3 class="fw-bold text-white mb-2">
+
+                                @modulo.NombreModulo
+
+                            </h3>
+
+                            <p class="mb-0"
+                               style="
+                                    color: #f5ebe0;
+                                    min-height: 48px;">
+
+                                @modulo.Descripcion
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+
+                        <!-- INFO -->
+                        <div class="mb-4">
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="rounded-circle me-3"
+                                     style="
+                                        width: 12px;
+                                        height: 12px;
+                                        background-color: #9c6644;"></div>
+
+                                <span style="
+                                        color: #6b4f3f;
+                                        font-weight: 500;">
+
+                                    Módulo activo en el sistema
+
+                                </span>
+
+                            </div>
+
+                            <div class="d-flex align-items-center">
+
+                                <div class="rounded-circle me-3"
+                                     style="
+                                        width: 12px;
+                                        height: 12px;
+                                        background-color: #ddb892;"></div>
+
+                                <span style="
+                                        color: #8b735f;
+                                        font-size: 14px;">
+
+                                    Configuración dinámica habilitada
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- BUTTONS -->
+                        <div class="d-grid gap-3">
+
+                            <!-- CONFIGURAR -->
+                            <a class="btn rounded-4 py-3 fw-semibold border-0 shadow-sm"
+                               asp-action="Detalle"
+                               asp-route-id="@modulo.Id"
+                               style="
+                                    background: linear-gradient(135deg, #b08968, #7f5539);
+                                    color: white;">
+
+                                <i class="bi bi-sliders me-2"></i>
+                                Configurar módulo
+
+                            </a>
+
+                            <!-- SECONDARY -->
+                            <div class="row g-3">
+
+                                <!-- REGISTROS -->
+                                <div class="col-6">
+
+                                    <a class="btn w-100 rounded-4 py-3 fw-semibold border-0 shadow-sm"
+                                       asp-controller="Registros"
+                                       asp-action="Index"
+                                       asp-route-moduloId="@modulo.Id"
+                                       style="
+                                            background-color: #ede0d4;
+                                            color: #6b4f3f;">
+
+                                        <i class="bi bi-table me-1"></i>
+                                        Registros
+
+                                    </a>
+
+                                </div>
+
+                                <!-- OPERACIONES -->
+                                <div class="col-6">
+
+                                    <a class="btn w-100 rounded-4 py-3 fw-semibold border-0 shadow-sm"
+                                       asp-controller="Operaciones"
+                                       asp-action="Index"
+                                       asp-route-moduloId="@modulo.Id"
+                                       style="
+                                            background-color: #f5ebe0;
+                                            color: #7f5539;">
+
+                                        <i class="bi bi-gear-fill me-1"></i>
+                                        Operaciones
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
 </div>

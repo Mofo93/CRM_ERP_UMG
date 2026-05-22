@@ -1,75 +1,408 @@
 @model List<OperacionDinamica>
-<h2>Operaciones</h2>
-@if (TempData["Ok"] != null)
-{
-<div class="alert alert-success">@TempData["Ok"]</div>
-}
-@if (TempData["Error"] != null)
-{
-<div class="alert alert-danger">@TempData["Error"]</div>
-}
-<div class="card shadow-sm">
-<div class="card-body table-responsive">
-@if (!Model.Any())
-{
-<div class="alert alert-warning">
-No hay operaciones registradas todavía.
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+        <div>
+
+            <h1 class="fw-bold mb-2"
+                style="
+                    color: #4b3a30;
+                    font-size: 38px;">
+
+                Operaciones
+
+            </h1>
+
+            <p class="mb-0"
+               style="
+                    color: #8b735f;
+                    font-size: 15px;">
+
+                Gestión y visualización de operaciones dinámicas del sistema
+
+            </p>
+
+        </div>
+
+        <div class="rounded-4 px-4 py-3 shadow-sm"
+             style="
+                background-color: #ede0d4;
+                color: #6b4f3f;">
+
+            <div class="fw-bold"
+                 style="font-size: 26px;">
+
+                @Model.Count
+
+            </div>
+
+            <small>
+                Operaciones registradas
+            </small>
+
+        </div>
+
+    </div>
+
+    <!-- ALERTAS -->
+    @if (TempData["Ok"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm mb-4"
+             style="
+                background-color: #e6f4ea;
+                color: #2d6a4f;">
+
+            <i class="bi bi-check-circle-fill me-2"></i>
+
+            @TempData["Ok"]
+
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm mb-4"
+             style="
+                background-color: #fff0f0;
+                color: #9d0208;">
+
+            <i class="bi bi-x-circle-fill me-2"></i>
+
+            @TempData["Error"]
+
+        </div>
+    }
+
+    <!-- MAIN CARD -->
+    <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+         style="background-color: #fffaf5;">
+
+        <!-- TOP -->
+        <div class="px-5 py-4 d-flex justify-content-between align-items-center flex-wrap gap-3"
+             style="
+                background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+            <div class="d-flex align-items-center">
+
+                <!-- ICON -->
+                <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                     style="
+                        width: 75px;
+                        height: 75px;
+                        background: rgba(255,255,255,0.15);">
+
+                    <i class="bi bi-diagram-3-fill"
+                       style="
+                            font-size: 30px;
+                            color: white;"></i>
+
+                </div>
+
+                <!-- TEXT -->
+                <div>
+
+                    <h2 class="fw-bold text-white mb-1">
+
+                        Panel de Operaciones
+
+                    </h2>
+
+                    <span style="color: #f5ebe0;">
+
+                        Administración y ejecución de fórmulas dinámicas
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body p-4">
+
+            @if (!Model.Any())
+            {
+                <div class="rounded-4 p-5 text-center shadow-sm"
+                     style="
+                        background-color: #f8f1eb;
+                        border: 1px solid #ead7c8;">
+
+                    <i class="bi bi-folder-x"
+                       style="
+                            font-size: 60px;
+                            color: #b08968;"></i>
+
+                    <h4 class="fw-bold mt-4 mb-2"
+                        style="color: #5c4435;">
+
+                        No hay operaciones registradas
+
+                    </h4>
+
+                    <p class="mb-0"
+                       style="color: #8b735f;">
+
+                        Aún no se han creado operaciones dinámicas en el sistema.
+
+                    </p>
+
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+
+                            <tr style="border-bottom: 1px solid #ead7c8;">
+
+                                <th class="border-0 py-4"
+                                    style="
+                                        color: #8b735f;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    OPERACIÓN
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="
+                                        color: #8b735f;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    MÓDULO
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="
+                                        color: #8b735f;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    FÓRMULAS
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="
+                                        color: #8b735f;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    FECHA
+
+                                </th>
+
+                                <th class="border-0 py-4 text-center"
+                                    style="
+                                        color: #8b735f;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    ACCIONES
+
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var operacion in Model)
+                            {
+                                <tr style="
+                                        border-bottom: 1px solid #f1e4d8;
+                                        transition: 0.3s;">
+
+                                    <!-- OPERACION -->
+                                    <td class="py-4">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="rounded-4 d-flex justify-content-center align-items-center me-3 shadow-sm"
+                                                 style="
+                                                    width: 50px;
+                                                    height: 50px;
+                                                    background: linear-gradient(135deg, #b08968, #7f5539);
+                                                    color: white;">
+
+                                                <i class="bi bi-cpu-fill"></i>
+
+                                            </div>
+
+                                            <div>
+
+                                                <div class="fw-bold"
+                                                     style="
+                                                        color: #4b3a30;
+                                                        font-size: 16px;">
+
+                                                    @operacion.NombreOperacion
+
+                                                </div>
+
+                                                <small style="color: #8b735f;">
+
+                                                    Operación dinámica
+
+                                                </small>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+                                    <!-- MODULO -->
+                                    <td class="py-4">
+
+                                        <span class="px-3 py-2 rounded-pill fw-semibold"
+                                              style="
+                                                background-color: #efe3d8;
+                                                color: #6b4f3f;
+                                                font-size: 14px;">
+
+                                            @operacion.Modulo?.NombreModulo
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- FORMULAS -->
+                                    <td class="py-4">
+
+                                        <div class="d-flex flex-column gap-2">
+
+                                            @foreach (var formula in operacion.Formulas)
+                                            {
+                                                <div class="rounded-3 px-3 py-2"
+                                                     style="
+                                                        background-color: #f8f1eb;
+                                                        border: 1px solid #ead7c8;">
+
+                                                    <code style="
+                                                            color: #9c6644;
+                                                            font-size: 13px;">
+
+                                                        @formula.NombreResultado =
+                                                        @formula.Expresion
+
+                                                    </code>
+
+                                                </div>
+                                            }
+
+                                        </div>
+
+                                    </td>
+
+                                    <!-- FECHA -->
+                                    <td class="py-4">
+
+                                        <div class="fw-semibold"
+                                             style="
+                                                color: #5c4435;">
+
+                                            @operacion.FechaCreacion.ToLocalTime().ToString("dd/MM/yyyy")
+
+                                        </div>
+
+                                        <small style="color: #8b735f;">
+
+                                            @operacion.FechaCreacion.ToLocalTime().ToString("hh:mm tt")
+
+                                        </small>
+
+                                    </td>
+
+                                    <!-- ACCIONES -->
+                                    <td class="py-4 text-center">
+
+                                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+                                            <!-- VER -->
+                                            <a class="btn px-3 py-2 rounded-4 fw-semibold shadow-sm border-0"
+                                               asp-action="Resultado"
+                                               asp-route-id="@operacion.Id"
+                                               style="
+                                                    background-color: #dde5b6;
+                                                    color: #3a5a40;">
+
+                                                <i class="bi bi-bar-chart-fill me-1"></i>
+                                                Resultado
+
+                                            </a>
+
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                                            {
+                                                <!-- ELIMINAR -->
+                                                <form asp-action="Eliminar"
+                                                      method="post"
+                                                      class="d-inline"
+                                                      onsubmit="return confirm('¿Eliminar operación?');">
+
+                                                    <input type="hidden"
+                                                           name="id"
+                                                           value="@operacion.Id" />
+
+                                                    <button class="btn px-3 py-2 rounded-4 fw-semibold shadow-sm border-0"
+                                                            type="submit"
+                                                            style="
+                                                                background-color: #ffe5e5;
+                                                                color: #b02a37;">
+
+                                                        <i class="bi bi-trash-fill me-1"></i>
+                                                        Eliminar
+
+                                                    </button>
+
+                                                </form>
+                                            }
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+    <!-- BOTON -->
+    <div class="mt-4">
+
+        <a class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+           asp-controller="Modulos"
+           asp-action="Index"
+           style="
+                background-color: #ede0d4;
+                color: #6b4f3f;">
+
+            <i class="bi bi-arrow-left-circle me-2"></i>
+            Volver a módulos
+
+        </a>
+
+    </div>
+
 </div>
-}
-else
-{
-<table class="table table-striped">
-<thead class="table-dark">
-<tr>
-<th>Operación</th>
-<th>Módulo</th>
-<th>Fórmulas</th>
-<th>Fecha</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-@foreach (var operacion in Model)
-{
-<tr>
-<td>@operacion.NombreOperacion</td>
-<td>@operacion.Modulo?.NombreModulo</td>
-<td>
-@foreach (var formula in operacion.Formulas)
-{
-<div>
-<code>@formula.NombreResultado =
-@formula.Expresion</code>
-</div>
-}
-</td>
-<td>@operacion.FechaCreacion.ToLocalTime()</td>
-<td>
-<a class="btn btn-sm btn-success"
-asp-action="Resultado"
-asp-route-id="@operacion.Id">
-Ver resultado
-</a>
-@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
-{
-<form asp-action="Eliminar"
-method="post"
-class="d-inline"
-onsubmit="return confirm('¿Eliminar operación?');">
-<input type="hidden" name="id" value="@operacion.Id" />
-<button class="btn btn-sm btn-danger" type="submit">
-Eliminar
-</button>
-</form>
-}
-</td>
-</tr>
-}
-</tbody>
-</table>
-}
-</div>
-</div>
-<a class="btn btn-secondary mt-3" asp-controller="Modulos" asp-action="Index">
-Volver a módulos
-</a>

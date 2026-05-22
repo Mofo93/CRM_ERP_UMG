@@ -1,85 +1,398 @@
 @{
-var clientes = (List<Cliente>)ViewBag.Clientes;
-var productos = (List<Producto>)ViewBag.Productos;
+    var clientes = (List<Cliente>)ViewBag.Clientes;
+    var productos = (List<Producto>)ViewBag.Productos;
 }
-<h2>Nueva venta</h2>
-@if (TempData["Error"] != null)
-{
-<div class="alert alert-danger">@TempData["Error"]</div>
-}
-<form asp-action="Crear" method="post" class="card shadow-sm p-4">
-<div class="mb-3">
-<label class="form-label">Cliente</label>
-<select name="clienteId" class="form-select">
-<option value="">Consumidor Final</option>
-@foreach (var cliente in clientes)
-{
-<option value="@cliente.Id">@cliente.Nit - @cliente.Nombre</option>
-}
-</select>
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-5">
+
+        <h1 class="fw-bold mb-2"
+            style="
+                color: #4b3a30;
+                font-size: 38px;">
+
+            Nueva Venta
+
+        </h1>
+
+        <p class="mb-0"
+           style="
+                color: #8b735f;
+                font-size: 15px;">
+
+            Registro y control de ventas realizadas dentro del sistema
+
+        </p>
+
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm px-4 py-3 mb-4"
+             style="
+                background-color: #fff0f0;
+                color: #9d0208;">
+
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+            @TempData["Error"]
+
+        </div>
+    }
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-11">
+
+            <!-- CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="background-color: #fffaf5;">
+
+                <!-- TOP -->
+                <div class="px-5 py-4"
+                     style="
+                        background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                    <div class="d-flex align-items-center">
+
+                        <!-- ICON -->
+                        <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                             style="
+                                width: 75px;
+                                height: 75px;
+                                background: rgba(255,255,255,0.15);">
+
+                            <i class="bi bi-cart-check-fill"
+                               style="
+                                    font-size: 32px;
+                                    color: white;"></i>
+
+                        </div>
+
+                        <!-- TEXT -->
+                        <div>
+
+                            <h2 class="fw-bold text-white mb-1">
+
+                                Registro de Venta
+
+                            </h2>
+
+                            <span style="color: #f5ebe0;">
+
+                                Gestión moderna de ventas y productos
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <form asp-action="Crear" method="post">
+
+                        <!-- CLIENTE -->
+                        <div class="mb-5">
+
+                            <label class="form-label fw-semibold mb-2"
+                                   style="color: #5c4435;">
+
+                                Cliente
+
+                            </label>
+
+                            <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                <span class="input-group-text border-0 px-4"
+                                      style="background-color: #efe3d8;">
+
+                                    <i class="bi bi-person-fill"
+                                       style="color: #9c6644;"></i>
+
+                                </span>
+
+                                <select name="clienteId"
+                                        class="form-select border-0 py-3"
+                                        style="
+                                            background-color: #fffdfb;
+                                            color: #4b3a30;">
+
+                                    <option value="">
+                                        Consumidor Final
+                                    </option>
+
+                                    @foreach (var cliente in clientes)
+                                    {
+                                        <option value="@cliente.Id">
+
+                                            @cliente.Nit - @cliente.Nombre
+
+                                        </option>
+                                    }
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <!-- PRODUCTOS -->
+                        <div class="mb-4">
+
+                            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+                                <div>
+
+                                    <h4 class="fw-bold mb-1"
+                                        style="color: #4b3a30;">
+
+                                        Productos
+
+                                    </h4>
+
+                                    <span style="color: #8b735f;">
+
+                                        Agrega uno o varios productos a la venta
+
+                                    </span>
+
+                                </div>
+
+                                <button type="button"
+                                        class="btn px-4 py-2 rounded-4 fw-semibold shadow-sm border-0"
+                                        onclick="agregarLinea()"
+                                        style="
+                                            background-color: #ede0d4;
+                                            color: #6b4f3f;">
+
+                                    <i class="bi bi-plus-circle-fill me-2"></i>
+                                    Agregar producto
+
+                                </button>
+
+                            </div>
+
+                            @if (!productos.Any())
+                            {
+                                <div class="alert border-0 rounded-4 shadow-sm px-4 py-3"
+                                     style="
+                                        background-color: #fff4e5;
+                                        color: #9c6644;">
+
+                                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                                    No hay productos disponibles con existencia.
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="lineasVenta">
+
+                                    <!-- LINEA -->
+                                    <div class="card border-0 rounded-4 shadow-sm mb-3 linea-venta"
+                                         style="background-color: #fdf8f3;">
+
+                                        <div class="card-body">
+
+                                            <div class="row g-3 align-items-center">
+
+                                                <!-- PRODUCTO -->
+                                                <div class="col-lg-8">
+
+                                                    <label class="form-label fw-semibold mb-2"
+                                                           style="color: #5c4435;">
+
+                                                        Producto
+
+                                                    </label>
+
+                                                    <select name="productoId"
+                                                            class="form-select border-0 py-3 shadow-sm rounded-4"
+                                                            required
+                                                            style="
+                                                                background-color: #fffdfb;
+                                                                color: #4b3a30;">
+
+                                                        @foreach (var producto in productos)
+                                                        {
+                                                            <option value="@producto.Id">
+
+                                                                @producto.Codigo - @producto.Nombre - Q @producto.PrecioVenta - Stock: @producto.Existencia
+
+                                                            </option>
+                                                        }
+
+                                                    </select>
+
+                                                </div>
+
+                                                <!-- CANTIDAD -->
+                                                <div class="col-lg-3">
+
+                                                    <label class="form-label fw-semibold mb-2"
+                                                           style="color: #5c4435;">
+
+                                                        Cantidad
+
+                                                    </label>
+
+                                                    <input name="cantidad"
+                                                           type="number"
+                                                           step="any"
+                                                           min="0.01"
+                                                           class="form-control border-0 py-3 shadow-sm rounded-4"
+                                                           placeholder="Cantidad"
+                                                           required
+                                                           style="
+                                                                background-color: #fffdfb;
+                                                                color: #4b3a30;" />
+
+                                                </div>
+
+                                                <!-- REMOVE -->
+                                                <div class="col-lg-1 text-center">
+
+                                                    <label class="form-label d-block mb-2 opacity-0">
+                                                        x
+                                                    </label>
+
+                                                    <button type="button"
+                                                            class="btn rounded-4 shadow-sm border-0"
+                                                            onclick="eliminarLinea(this)"
+                                                            style="
+                                                                background-color: #ffe5e5;
+                                                                color: #b02a37;
+                                                                width: 48px;
+                                                                height: 48px;">
+
+                                                        <i class="bi bi-trash-fill"></i>
+
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- DESCUENTO -->
+                                <div class="mt-5">
+
+                                    <label class="form-label fw-semibold mb-2"
+                                           style="color: #5c4435;">
+
+                                        Descuento
+
+                                    </label>
+
+                                    <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                        <span class="input-group-text border-0 px-4"
+                                              style="background-color: #efe3d8;">
+
+                                            <i class="bi bi-percent"
+                                               style="color: #9c6644;"></i>
+
+                                        </span>
+
+                                        <input name="descuento"
+                                               type="number"
+                                               step="any"
+                                               value="0"
+                                               class="form-control border-0 py-3"
+                                               style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;" />
+
+                                    </div>
+
+                                </div>
+
+                                <!-- ACTIONS -->
+                                <div class="d-flex justify-content-between align-items-center mt-5 flex-wrap gap-3">
+
+                                    <a asp-action="Index"
+                                       class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+                                       style="
+                                            background-color: #ede0d4;
+                                            color: #6b4f3f;">
+
+                                        <i class="bi bi-arrow-left-circle me-2"></i>
+                                        Cancelar
+
+                                    </a>
+
+                                    <button class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                            type="submit"
+                                            style="
+                                                background: linear-gradient(135deg, #b08968, #7f5539);
+                                                color: white;">
+
+                                        <i class="bi bi-check-circle-fill me-2"></i>
+                                        Guardar Venta
+
+                                    </button>
+
+                                </div>
+                            }
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<hr />
-<h5>Productos</h5>
-@if (!productos.Any())
-{
-<div class="alert alert-warning">
-No hay productos disponibles con existencia.
-</div>
-}
-else
-{
-<div id="lineasVenta">
-<div class="row mb-2 linea-venta">
-<div class="col-md-8">
-<select name="productoId" class="form-select" required>
-@foreach (var producto in productos)
-{
-<option value="@producto.Id">
-@producto.Codigo - @producto.Nombre - Q
-@producto.PrecioVenta - Stock: @producto.Existencia
-</option>
-}
-</select>
-</div>
-<div class="col-md-3">
-<input name="cantidad" type="number" step="any" min="0.01"
-class="form-control" placeholder="Cantidad" required />
-</div>
-<div class="col-md-1">
-<button type="button" class="btn btn-danger"
-onclick="eliminarLinea(this)">X</button>
-</div>
-</div>
-</div>
-<button type="button" class="btn btn-outline-secondary btn-sm mb-3"
-onclick="agregarLinea()">
-Agregar producto
-</button>
-<div class="mb-3">
-<label class="form-label">Descuento</label>
-<input name="descuento" type="number" step="any" value="0"
-class="form-control" />
-</div>
-<button class="btn btn-primary" type="submit">Guardar venta</button>
-}
-<a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>
+
 @section Scripts {
+
 <script>
-function agregarLinea() {
-const contenedor = document.getElementById("lineasVenta");
-const primeraLinea = document.querySelector(".linea-venta");
-const nuevaLinea = primeraLinea.cloneNode(true);
-nuevaLinea.querySelector("input[name='cantidad']").value = "";
-contenedor.appendChild(nuevaLinea);
-}
-function eliminarLinea(boton) {
-const lineas = document.querySelectorAll(".linea-venta");
-if (lineas.length <= 1) {
-alert("Debe quedar al menos un producto.");
-return;
-}
-boton.closest(".linea-venta").remove();
-}
+
+    function agregarLinea() {
+
+        const contenedor = document.getElementById("lineasVenta");
+
+        const primeraLinea = document.querySelector(".linea-venta");
+
+        const nuevaLinea = primeraLinea.cloneNode(true);
+
+        nuevaLinea.querySelector("input[name='cantidad']").value = "";
+
+        contenedor.appendChild(nuevaLinea);
+
+    }
+
+    function eliminarLinea(boton) {
+
+        const lineas = document.querySelectorAll(".linea-venta");
+
+        if (lineas.length <= 1) {
+
+            alert("Debe quedar al menos un producto.");
+
+            return;
+
+        }
+
+        boton.closest(".linea-venta").remove();
+
+    }
+
 </script>
+
 }

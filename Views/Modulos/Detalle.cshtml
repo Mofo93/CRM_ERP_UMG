@@ -1,111 +1,517 @@
 @model ModuloDinamico
-<h2>@Model.NombreModulo</h2>
-<p class="text-muted">@Model.Descripcion</p>
-@if (TempData["Ok"] != null)
-{
-<div class="alert alert-success">@TempData["Ok"]</div>
-}
-@if (TempData["Error"] != null)
-{
-<div class="alert alert-danger">@TempData["Error"]</div>
-}
-<div class="mb-3">
-<a class="btn btn-success" asp-controller="Registros" asp-action="Index"
-asp-route-moduloId="@Model.Id">Ver registros</a>
-<a class="btn btn-dark" asp-controller="Operaciones" asp-action="Crear"
-asp-route-moduloId="@Model.Id">Crear operación</a>
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+        <div>
+
+            <h1 class="fw-bold mb-2"
+                style="
+                    color: #4b3a30;
+                    font-size: 38px;">
+
+                @Model.NombreModulo
+
+            </h1>
+
+            <p class="mb-0"
+               style="
+                    color: #8b735f;
+                    font-size: 15px;">
+
+                @Model.Descripcion
+
+            </p>
+
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap">
+
+            <a class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+               asp-controller="Registros"
+               asp-action="Index"
+               asp-route-moduloId="@Model.Id"
+               style="
+                    background: linear-gradient(135deg, #b08968, #7f5539);
+                    color: white;">
+
+                <i class="bi bi-table me-2"></i>
+                Ver registros
+
+            </a>
+
+            <a class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+               asp-controller="Operaciones"
+               asp-action="Crear"
+               asp-route-moduloId="@Model.Id"
+               style="
+                    background-color: #ede0d4;
+                    color: #6b4f3f;">
+
+                <i class="bi bi-plus-circle-fill me-2"></i>
+                Crear operación
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- ALERTAS -->
+    @if (TempData["Ok"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm mb-4"
+             style="
+                background-color: #edf7ed;
+                color: #3d6b45;">
+
+            <i class="bi bi-check-circle-fill me-2"></i>
+
+            @TempData["Ok"]
+
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert border-0 rounded-4 shadow-sm mb-4"
+             style="
+                background-color: #fdecec;
+                color: #8a3b3b;">
+
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+            @TempData["Error"]
+
+        </div>
+    }
+
+    <!-- CAMPOS -->
+    <div class="card border-0 rounded-5 overflow-hidden shadow-lg mb-5"
+         style="background-color: #fffaf5;">
+
+        <!-- TOP -->
+        <div class="px-5 py-4"
+             style="
+                background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+            <div class="d-flex align-items-center">
+
+                <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                     style="
+                        width: 70px;
+                        height: 70px;
+                        background: rgba(255,255,255,0.15);">
+
+                    <i class="bi bi-columns-gap"
+                       style="
+                            font-size: 30px;
+                            color: white;"></i>
+
+                </div>
+
+                <div>
+
+                    <h3 class="fw-bold text-white mb-1">
+
+                        Campos del módulo
+
+                    </h3>
+
+                    <span style="color: #f5ebe0;">
+
+                        Administración de estructura dinámica
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body p-4">
+
+            @if (!Model.EsquemaCampos.Any())
+            {
+                <div class="rounded-4 p-4 text-center"
+                     style="
+                        background-color: #f8f1eb;
+                        color: #7f5539;">
+
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                    Este módulo todavía no tiene campos registrados.
+
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+
+                            <tr>
+
+                                <th class="border-0 pb-4"
+                                    style="
+                                        color: #9c6644;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    NOMBRE INTERNO
+
+                                </th>
+
+                                <th class="border-0 pb-4"
+                                    style="
+                                        color: #9c6644;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    ETIQUETA
+
+                                </th>
+
+                                <th class="border-0 pb-4"
+                                    style="
+                                        color: #9c6644;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    TIPO
+
+                                </th>
+
+                                <th class="border-0 pb-4"
+                                    style="
+                                        color: #9c6644;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    REQUERIDO
+
+                                </th>
+
+                                <th class="border-0 pb-4 text-end"
+                                    style="
+                                        color: #9c6644;
+                                        font-size: 13px;
+                                        letter-spacing: 1px;">
+
+                                    ACCIONES
+
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var campo in Model.EsquemaCampos)
+                            {
+                                <tr style="border-top: 1px solid #f1e6dd;">
+
+                                    <!-- NOMBRE -->
+                                    <td class="py-4">
+
+                                        <span class="px-3 py-2 rounded-pill fw-semibold"
+                                              style="
+                                                    background-color: #f3e6dc;
+                                                    color: #7f5539;">
+
+                                            @campo.Key
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- ETIQUETA -->
+                                    <td class="py-4"
+                                        style="
+                                            color: #4b3a30;
+                                            font-weight: 600;">
+
+                                        @campo.Value.Etiqueta
+
+                                    </td>
+
+                                    <!-- TIPO -->
+                                    <td class="py-4">
+
+                                        <span class="px-3 py-2 rounded-pill"
+                                              style="
+                                                    background-color: #ede0d4;
+                                                    color: #6b4f3f;">
+
+                                            @campo.Value.TipoCampo
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- REQUERIDO -->
+                                    <td class="py-4">
+
+                                        @if (campo.Value.Requerido)
+                                        {
+                                            <span class="px-3 py-2 rounded-pill fw-semibold"
+                                                  style="
+                                                        background-color: #edf7ed;
+                                                        color: #3d6b45;">
+
+                                                Sí
+
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="px-3 py-2 rounded-pill fw-semibold"
+                                                  style="
+                                                        background-color: #f4f1ee;
+                                                        color: #7b6a5d;">
+
+                                                No
+
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                    <!-- ACCIONES -->
+                                    <td class="py-4 text-end">
+
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                                        {
+                                            <form asp-action="EliminarCampo"
+                                                  method="post"
+                                                  onsubmit="return confirm('¿Eliminar este campo?');">
+
+                                                <input type="hidden"
+                                                       name="moduloId"
+                                                       value="@Model.Id" />
+
+                                                <input type="hidden"
+                                                       name="nombreCampo"
+                                                       value="@campo.Key" />
+
+                                                <button class="btn border-0 rounded-4 px-4 py-2 fw-semibold"
+                                                        type="submit"
+                                                        style="
+                                                            background-color: #fdecec;
+                                                            color: #8a3b3b;">
+
+                                                    <i class="bi bi-trash-fill me-2"></i>
+                                                    Eliminar
+
+                                                </button>
+
+                                            </form>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+    <!-- AGREGAR CAMPO -->
+    @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+    {
+        <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+             style="background-color: #fffaf5;">
+
+            <!-- TOP -->
+            <div class="px-5 py-4"
+                 style="
+                    background: linear-gradient(135deg, #b08968, #7f5539);">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                         style="
+                            width: 70px;
+                            height: 70px;
+                            background: rgba(255,255,255,0.15);">
+
+                        <i class="bi bi-plus-square-fill"
+                           style="
+                                font-size: 28px;
+                                color: white;"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="fw-bold text-white mb-1">
+
+                            Agregar nuevo campo
+
+                        </h3>
+
+                        <span style="color: #f5ebe0;">
+
+                            Personaliza la estructura del módulo
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BODY -->
+            <div class="card-body p-5">
+
+                <form asp-action="AgregarCampo" method="post">
+
+                    <input type="hidden"
+                           name="moduloId"
+                           value="@Model.Id" />
+
+                    <div class="row g-4">
+
+                        <!-- NOMBRE -->
+                        <div class="col-lg-3">
+
+                            <label class="form-label fw-semibold mb-2"
+                                   style="color: #5c4435;">
+
+                                Nombre interno
+
+                            </label>
+
+                            <input name="nombreCampo"
+                                   required
+                                   class="form-control border-0 shadow-sm rounded-4 py-3"
+                                   style="
+                                        background-color: #fffdfb;
+                                        color: #4b3a30;"
+                                   placeholder="precio_unitario" />
+
+                        </div>
+
+                        <!-- ETIQUETA -->
+                        <div class="col-lg-3">
+
+                            <label class="form-label fw-semibold mb-2"
+                                   style="color: #5c4435;">
+
+                                Etiqueta visible
+
+                            </label>
+
+                            <input name="etiqueta"
+                                   required
+                                   class="form-control border-0 shadow-sm rounded-4 py-3"
+                                   style="
+                                        background-color: #fffdfb;
+                                        color: #4b3a30;"
+                                   placeholder="Precio Unitario" />
+
+                        </div>
+
+                        <!-- TIPO -->
+                        <div class="col-lg-3">
+
+                            <label class="form-label fw-semibold mb-2"
+                                   style="color: #5c4435;">
+
+                                Tipo de campo
+
+                            </label>
+
+                            <select name="tipoCampo"
+                                    class="form-select border-0 shadow-sm rounded-4 py-3"
+                                    style="
+                                        background-color: #fffdfb;
+                                        color: #4b3a30;">
+
+                                <option value="texto">Texto</option>
+                                <option value="numero">Número</option>
+                                <option value="fecha">Fecha</option>
+                                <option value="booleano">Sí / No</option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- REQUERIDO -->
+                        <div class="col-lg-3">
+
+                            <label class="form-label fw-semibold mb-3"
+                                   style="color: #5c4435;">
+
+                                Requerido
+
+                            </label>
+
+                            <div class="rounded-4 px-4 py-3 shadow-sm"
+                                 style="
+                                    background-color: #f8f1eb;">
+
+                                <div class="form-check">
+
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="requerido"
+                                           value="true"
+                                           id="requerido">
+
+                                    <label class="form-check-label fw-semibold"
+                                           for="requerido"
+                                           style="color: #6b4f3f;">
+
+                                        Campo obligatorio
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BUTTON -->
+                    <div class="mt-5 text-end">
+
+                        <button class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                type="submit"
+                                style="
+                                    background: linear-gradient(135deg, #b08968, #7f5539);
+                                    color: white;">
+
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Agregar campo
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    }
+
 </div>
-<div class="card shadow-sm mb-4">
-<div class="card-header bg-primary text-white">
-Campos del módulo
-</div>
-<div class="card-body">
-@if (!Model.EsquemaCampos.Any())
-{
-<div class="alert alert-warning">Este módulo todavía no tiene
-campos.</div>
-}
-else
-{
-<table class="table table-striped">
-<thead>
-<tr>
-<th>Nombre interno</th>
-<th>Etiqueta</th>
-<th>Tipo</th>
-<th>Requerido</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-@foreach (var campo in Model.EsquemaCampos)
-{
-<tr>
-<td><code>@campo.Key</code></td>
-<td>@campo.Value.Etiqueta</td>
-<td>@campo.Value.TipoCampo</td>
-<td>@(campo.Value.Requerido ? "Sí" : "No")</td>
-<td>
-@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
-{
-<form asp-action="EliminarCampo" method="post"
-onsubmit="return confirm('¿Eliminar este campo?');">
-<input type="hidden" name="moduloId" value="@Model.Id"
-/>
-<input type="hidden" name="nombreCampo"
-value="@campo.Key" />
-<button class="btn btn-sm btn-danger"
-type="submit">Eliminar</button>
-</form>
-}
-</td>
-</tr>
-}
-</tbody>
-</table>
-}
-</div>
-</div>
-@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
-{
-<div class="card shadow-sm">
-<div class="card-header bg-dark text-white">
-Agregar nuevo campo
-</div>
-<div class="card-body">
-<form asp-action="AgregarCampo" method="post">
-<input type="hidden" name="moduloId" value="@Model.Id" />
-<div class="row">
-<div class="col-md-3 mb-3">
-<label class="form-label">Nombre interno</label>
-<input name="nombreCampo" class="form-control"
-placeholder="precio_unitario" required />
-</div>
-<div class="col-md-3 mb-3">
-<label class="form-label">Etiqueta visible</label>
-<input name="etiqueta" class="form-control" placeholder="Precio
-Unitario" required />
-</div>
-<div class="col-md-3 mb-3">
-<label class="form-label">Tipo</label>
-<select name="tipoCampo" class="form-select">
-<option value="texto">Texto</option>
-<option value="numero">Número</option>
-<option value="fecha">Fecha</option>
-<option value="booleano">Sí / No</option>
-</select>
-</div>
-<div class="col-md-3 mb-3">
-<label class="form-label">Requerido</label>
-<div class="form-check">
-<input class="form-check-input" type="checkbox"
-name="requerido" value="true" />
-<label class="form-check-label">Sí</label>
-</div>
-</div>
-</div>
-<button class="btn btn-primary" type="submit">Agregar campo</button>
-</form>
-</div>
-</div>
-}

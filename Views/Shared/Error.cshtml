@@ -1,25 +1,181 @@
 ﻿@model ErrorViewModel
+
 @{
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="container-fluid px-4 py-5">
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+    <div class="row justify-content-center">
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+        <div class="col-xl-7 col-lg-8 col-md-10">
+
+            <!-- ERROR CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="
+                    background-color: #fffaf5;">
+
+                <!-- TOP -->
+                <div class="px-5 py-5 text-center"
+                     style="
+                        background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                    <!-- ICON -->
+                    <div class="mb-4">
+
+                        <div class="rounded-circle d-inline-flex justify-content-center align-items-center shadow-lg"
+                             style="
+                                width: 110px;
+                                height: 110px;
+                                background: rgba(255,255,255,0.15);">
+
+                            <i class="bi bi-exclamation-triangle-fill"
+                               style="
+                                    font-size: 50px;
+                                    color: white;"></i>
+
+                        </div>
+
+                    </div>
+
+                    <!-- TITLE -->
+                    <h1 class="fw-bold text-white mb-2">
+
+                        Ocurrió un error
+
+                    </h1>
+
+                    <p class="mb-0"
+                       style="
+                            color: #f5ebe0;
+                            font-size: 16px;">
+
+                        El sistema encontró un problema mientras procesaba tu solicitud
+
+                    </p>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <!-- ALERT -->
+                    <div class="alert border-0 rounded-4 shadow-sm mb-4"
+                         style="
+                            background-color: #f8ede3;
+                            color: #7f5539;">
+
+                        <div class="d-flex align-items-center">
+
+                            <i class="bi bi-shield-exclamation me-3"
+                               style="font-size: 28px;"></i>
+
+                            <div>
+
+                                <div class="fw-bold mb-1">
+                                    Error del sistema
+                                </div>
+
+                                <div>
+                                    Se produjo un error inesperado.
+                                    Intenta nuevamente o contacta al administrador.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- REQUEST ID -->
+                    @if (Model.ShowRequestId)
+                    {
+                        <div class="rounded-4 p-4 mb-4"
+                             style="
+                                background-color: #ede0d4;">
+
+                            <div class="fw-semibold mb-2"
+                                 style="color: #6b4f3f;">
+
+                                ID de solicitud
+
+                            </div>
+
+                            <code style="
+                                    color: #7f5539;
+                                    font-size: 15px;">
+
+                                @Model.RequestId
+
+                            </code>
+
+                        </div>
+                    }
+
+                    <!-- INFO -->
+                    <div class="rounded-4 p-4"
+                         style="
+                            background-color: #fff4ec;
+                            border: 1px solid #ead7c4;">
+
+                        <h5 class="fw-bold mb-3"
+                            style="color: #7f5539;">
+
+                            Información para desarrollo
+
+                        </h5>
+
+                        <p style="
+                                color: #6b4f3f;
+                                line-height: 1.8;">
+
+                            El entorno
+                            <strong>Development</strong>
+                            muestra información detallada de los errores.
+                            No se recomienda habilitarlo en producción
+                            porque puede exponer información sensible del sistema.
+
+                        </p>
+
+                        <p class="mb-0"
+                           style="
+                                color: #6b4f3f;
+                                line-height: 1.8;">
+
+                            Para depuración local,
+                            configura la variable de entorno
+                            <strong>ASPNETCORE_ENVIRONMENT</strong>
+                            como
+                            <strong>Development</strong>
+                            y reinicia la aplicación.
+
+                        </p>
+
+                    </div>
+
+                    <!-- BUTTON -->
+                    <div class="mt-5 text-center">
+
+                        <a asp-controller="Modulos"
+                           asp-action="Index"
+                           class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                           style="
+                                background: linear-gradient(135deg, #b08968, #7f5539);
+                                color: white;">
+
+                            <i class="bi bi-arrow-left-circle-fill me-2"></i>
+                            Volver al sistema
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

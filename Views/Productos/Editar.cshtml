@@ -1,34 +1,316 @@
 @model Producto
-<h2>Editar producto</h2>
-<form asp-action="Editar" method="post" class="card shadow-sm p-4">
-<input type="hidden" asp-for="Id" />
-<input type="hidden" asp-for="FechaCreacion" />
-<div class="mb-3">
-<label class="form-label">Código</label>
-<input asp-for="Codigo" class="form-control" required />
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-5">
+
+        <h1 class="fw-bold mb-2"
+            style="color: #4b3a30;">
+
+            Editar Producto
+
+        </h1>
+
+        <p style="
+                color: #8b735f;
+                font-size: 15px;">
+
+            Actualiza la información y configuración del producto
+
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <!-- CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="background-color: #fffaf5;">
+
+                <!-- TOP -->
+                <div class="px-5 py-4"
+                     style="background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                    <div class="d-flex align-items-center">
+
+                        <!-- ICON -->
+                        <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                             style="
+                                width: 75px;
+                                height: 75px;
+                                background: rgba(255,255,255,0.15);">
+
+                            <i class="bi bi-pencil-square"
+                               style="
+                                    font-size: 32px;
+                                    color: white;"></i>
+
+                        </div>
+
+                        <!-- TEXT -->
+                        <div>
+
+                            <h2 class="fw-bold text-white mb-1">
+
+                                Edición de Producto
+
+                            </h2>
+
+                            <span style="color: #f5ebe0;">
+
+                                Modifica la información del inventario
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <form asp-action="Editar" method="post">
+
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="FechaCreacion" />
+
+                        <div class="row g-4">
+
+                            <!-- CODIGO -->
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Código
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-upc-scan"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Codigo"
+                                           required
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- EXISTENCIA -->
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Existencia
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-box-seam-fill"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Existencia"
+                                           type="number"
+                                           step="any"
+                                           required
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- NOMBRE -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Nombre del producto
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-box-fill"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Nombre"
+                                           required
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- DESCRIPCION -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Descripción
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4 align-items-start pt-3"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-card-text"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <textarea asp-for="Descripcion"
+                                              rows="4"
+                                              class="form-control border-0 py-3"
+                                              style="
+                                                    background-color: #fffdfb;
+                                                    color: #4b3a30;
+                                                    resize: none;"></textarea>
+
+                                </div>
+
+                            </div>
+
+                            <!-- PRECIO -->
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Precio de venta
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-cash-stack"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="PrecioVenta"
+                                           type="number"
+                                           step="any"
+                                           required
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- ACTIVO -->
+                            <div class="col-md-6 d-flex align-items-end">
+
+                                <div class="w-100 rounded-4 p-4 shadow-sm"
+                                     style="
+                                        background-color: #f5ebe0;">
+
+                                    <div class="form-check">
+
+                                        <input asp-for="Activo"
+                                               class="form-check-input"
+                                               style="
+                                                    border-color: #9c6644;" />
+
+                                        <label class="form-check-label fw-semibold"
+                                               style="color: #5c4435;">
+
+                                            Producto activo
+
+                                        </label>
+
+                                    </div>
+
+                                    <small style="color: #8b735f;">
+
+                                        El producto estará disponible en el sistema
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center mt-5 flex-wrap gap-3">
+
+                            <a asp-action="Index"
+                               class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+                               style="
+                                    background-color: #ede0d4;
+                                    color: #6b4f3f;">
+
+                                <i class="bi bi-arrow-left-circle me-2"></i>
+                                Cancelar
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                    style="
+                                        background: linear-gradient(135deg, #b08968, #7f5539);
+                                        color: white;">
+
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Guardar Cambios
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<div class="mb-3">
-<label class="form-label">Nombre</label>
-<input asp-for="Nombre" class="form-control" required />
-</div>
-<div class="mb-3">
-<label class="form-label">Descripción</label>
-<textarea asp-for="Descripcion" class="form-control"></textarea>
-</div>
-<div class="mb-3">
-<label class="form-label">Precio de venta</label>
-<input asp-for="PrecioVenta" type="number" step="any" class="form-control"
-required />
-</div>
-<div class="mb-3">
-<label class="form-label">Existencia</label>
-<input asp-for="Existencia" type="number" step="any" class="form-control"
-required />
-</div>
-<div class="form-check mb-3">
-<input asp-for="Activo" class="form-check-input" />
-<label class="form-check-label">Activo</label>
-</div>
-<button class="btn btn-primary" type="submit">Guardar cambios</button>
-<a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>

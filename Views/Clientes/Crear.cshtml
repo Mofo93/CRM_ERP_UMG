@@ -1,89 +1,227 @@
 @model Cliente
 
-<div class="container mt-4">
+<div class="container-fluid px-4 mt-4">
+
+    <!-- HEADER -->
+    <div class="mb-5">
+
+        <h1 class="fw-bold mb-2"
+            style="color: #3f2d23;">
+
+            Nuevo Cliente
+
+        </h1>
+
+        <p style="color: #8a7668;
+                  font-size: 15px;">
+
+            Completa la información para registrar un nuevo cliente en el sistema
+
+        </p>
+
+    </div>
 
     <div class="row justify-content-center">
 
-        <div class="col-md-8">
+        <div class="col-xl-8 col-lg-10">
 
-            <div class="card border-0 shadow-lg rounded-4">
+            <!-- CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="background-color: #fffaf5;">
 
-                <div class="card-header text-white rounded-top-4"
-                     style="background: linear-gradient(135deg, #36b9cc, #1a8a9e);">
+                <!-- TOP -->
+                <div class="px-5 py-4"
+                     style="background: linear-gradient(135deg, #b08968, #7f5539);">
 
-                    <h2 class="fw-bold m-0">
-                        <i class="bi bi-person-plus-fill me-2"></i>
-                        Nuevo Cliente
-                    </h2>
+                    <div class="d-flex align-items-center">
+
+                        <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                             style="
+                                width: 75px;
+                                height: 75px;
+                                background: rgba(255,255,255,0.15);
+                                backdrop-filter: blur(6px);">
+
+                            <i class="bi bi-person-plus-fill"
+                               style="font-size: 34px;
+                                      color: white;"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="fw-bold text-white mb-1">
+                                Registro de Cliente
+                            </h2>
+
+                            <span style="color: #f6ede7;">
+
+                                Gestión moderna y organizada de clientes
+
+                            </span>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <div class="card-body p-4">
+                <!-- BODY -->
+                <div class="card-body p-5">
 
                     <form asp-action="Crear" method="post">
 
-                        <div class="mb-4">
+                        <div class="row g-4">
 
-                            <label class="form-label fw-semibold">
-                                NIT
-                            </label>
+                            <!-- NIT -->
+                            <div class="col-md-6">
 
-                            <input asp-for="Nit"
-                                   class="form-control rounded-3 shadow-sm"
-                                   value="CF" />
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    NIT
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-credit-card-2-front-fill"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Nit"
+                                           value="CF"
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- TELEFONO -->
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Teléfono
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-telephone-fill"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Telefono"
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- NOMBRE -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Nombre Completo
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-person-fill"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Nombre"
+                                           required
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
+
+                            <!-- DIRECCION -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold mb-2"
+                                       style="color: #5c4435;">
+
+                                    Dirección
+
+                                </label>
+
+                                <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                    <span class="input-group-text border-0 px-4"
+                                          style="background-color: #efe3d8;">
+
+                                        <i class="bi bi-geo-alt-fill"
+                                           style="color: #9c6644;"></i>
+
+                                    </span>
+
+                                    <input asp-for="Direccion"
+                                           class="form-control border-0 py-3"
+                                           style="
+                                                background-color: #fffdfb;
+                                                color: #4b3a30;" />
+
+                                </div>
+
+                            </div>
 
                         </div>
 
-                        <div class="mb-4">
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center mt-5">
 
-                            <label class="form-label fw-semibold">
-                                Nombre
-                            </label>
+                            <a asp-action="Index"
+                               class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm"
+                               style="
+                                    background-color: #ede0d4;
+                                    color: #6b4f3f;
+                                    border: none;">
 
-                            <input asp-for="Nombre"
-                                   class="form-control rounded-3 shadow-sm"
-                                   required />
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label class="form-label fw-semibold">
-                                Teléfono
-                            </label>
-
-                            <input asp-for="Telefono"
-                                   class="form-control rounded-3 shadow-sm" />
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label class="form-label fw-semibold">
-                                Dirección
-                            </label>
-
-                            <input asp-for="Direccion"
-                                   class="form-control rounded-3 shadow-sm" />
-
-                        </div>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success px-4 rounded-pill shadow-sm"
-                                    type="submit">
-
-                                <i class="bi bi-check-circle me-1"></i>
-                                Guardar
-
-                            </button>
-
-                            <a class="btn btn-secondary px-4 rounded-pill shadow-sm"
-                               asp-action="Index">
-
-                                Cancelar
+                                <i class="bi bi-arrow-left-circle me-2"></i>
+                                Volver
 
                             </a>
+
+                            <button type="submit"
+                                    class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                    style="
+                                        background: linear-gradient(135deg, #b08968, #7f5539);
+                                        color: white;">
+
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Guardar Cliente
+
+                            </button>
 
                         </div>
 

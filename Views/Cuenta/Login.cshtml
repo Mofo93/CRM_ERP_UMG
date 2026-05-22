@@ -1,79 +1,202 @@
 @model LoginVista
 
-<div class="container">
+<div class="container-fluid p-0">
 
-    <div class="row justify-content-center align-items-center"
-         style="min-height: 90vh;">
+    <div class="row g-0"
+         style="min-height: 100vh;">
 
-        <div class="col-md-5 col-lg-4">
+        <!-- LEFT PANEL -->
+        <div class="col-lg-7 d-none d-lg-flex flex-column justify-content-between p-5"
+             style="
+                background:
+                linear-gradient(
+                135deg,
+                #b7a391 0%,
+                #a28c7a 45%,
+                #8b6f5c 100%);
+                position: relative;
+                overflow: hidden;">
 
-            <div class="card border-0 shadow-lg rounded-5 overflow-hidden"
-                 style="background-color: #fffafd;">
+            <!-- ABSTRACT SHAPES -->
+            <div style="
+                    position: absolute;
+                    width: 450px;
+                    height: 450px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.05);
+                    top: -120px;
+                    left: -120px;
+                    filter: blur(8px);">
+            </div>
 
-                <!-- HEADER -->
-                <div class="text-center text-white p-5"
-                     style="background: linear-gradient(135deg, #7b2cbf, #d63384);">
+            <div style="
+                    position: absolute;
+                    width: 320px;
+                    height: 320px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.04);
+                    bottom: -80px;
+                    right: -80px;">
+            </div>
 
-                    <div class="mb-3">
+            <!-- LOGO -->
+            <div class="position-relative">
 
-                        <div class="d-inline-flex justify-content-center align-items-center rounded-circle shadow"
-                             style="width: 90px;
-                                    height: 90px;
-                                    background: rgba(255,255,255,0.18);
-                                    backdrop-filter: blur(6px);">
+                <div class="d-flex align-items-center">
 
-                            <i class="bi bi-gem"
-                               style="font-size: 42px;"></i>
+                    <div class="rounded-4 d-flex justify-content-center align-items-center shadow"
+                         style="
+                            width: 70px;
+                            height: 70px;
+                            background: rgba(255,255,255,0.10);
+                            backdrop-filter: blur(8px);">
 
-                        </div>
+                        <i class="bi bi-grid-1x2-fill"
+                           style="
+                                font-size: 30px;
+                                color: white;">
+                        </i>
 
                     </div>
 
-                    <h2 class="fw-bold mb-1" style="color:white;">
-                        CRM ERP UMG
-                    </h2>
+                    <div class="ms-3">
 
-                    <p class="mb-0 opacity-75">
-                        Bienvenido nuevamente
-                    </p>
+                        <h4 class="fw-bold mb-0 text-white">
+                            CRM ERP UMG
+                        </h4>
+
+                        <small style="color: rgba(255,255,255,0.70);">
+                            Enterprise Management
+                        </small>
+
+                    </div>
 
                 </div>
 
-                <!-- BODY -->
-                <div class="card-body p-5">
+            </div>
+
+            <!-- CENTER TEXT -->
+            <div class="position-relative px-4">
+
+               
+
+                <p class="mt-4"
+                   style="
+                        color: rgba(255,255,255,0.80);
+                        font-size: 20px;
+                        max-width: 540px;
+                        line-height: 1.7;">
+
+                    Plataforma inteligente para la administración,
+                    organización y crecimiento de tu empresa.
+
+                </p>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="position-relative">
+
+                <small style="color: rgba(255,255,255,0.65);">
+
+                    CRM ERP UMG · Sistema empresarial
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="col-lg-5 d-flex justify-content-center align-items-center"
+             style="
+                background-color: #f6f1eb;
+                padding: 40px;">
+
+            <div style="
+                    width: 100%;
+                    max-width: 430px;">
+
+                <!-- MOBILE LOGO -->
+                <div class="d-lg-none text-center mb-5">
+
+                    <div class="rounded-4 d-inline-flex justify-content-center align-items-center shadow-sm"
+                         style="
+                            width: 75px;
+                            height: 75px;
+                            background: linear-gradient(135deg, #8b6f5c, #6f5646);">
+
+                        <i class="bi bi-grid-1x2-fill text-white"
+                           style="font-size: 32px;">
+                        </i>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD -->
+                <div class="border-0 rounded-5 shadow-lg p-5"
+                     style="
+                        background-color: rgba(255,255,255,0.72);
+                        backdrop-filter: blur(12px);">
+
+                    <div class="mb-5">
+
+                        <h2 class="fw-semibold mb-2"
+                            style="
+                                color: #4b3b32;
+                                font-size: 38px;">
+
+                            Iniciar sesión
+
+                        </h2>
+
+                        <p style="
+                                color: #8a796d;
+                                font-size: 16px;">
+
+                            Ingresa tus credenciales para continuar
+
+                        </p>
+
+                    </div>
 
                     <form asp-action="Login" method="post">
 
                         <input type="hidden" asp-for="ReturnUrl" />
 
                         <div asp-validation-summary="ModelOnly"
-                             class="alert alert-danger rounded-4 border-0 shadow-sm">
+                             class="alert alert-danger rounded-4 border-0 mb-4">
                         </div>
 
                         <!-- EMAIL -->
                         <div class="mb-4">
 
                             <label asp-for="Email"
-                                   class="form-label fw-semibold text-dark">
+                                   class="form-label fw-semibold mb-3"
+                                   style="color: #5a4a40;">
 
                                 Correo electrónico
 
                             </label>
 
-                            <div class="input-group shadow-sm rounded-4 overflow-hidden">
+                            <div class="input-group rounded-4 overflow-hidden shadow-sm">
 
                                 <span class="input-group-text border-0 px-4"
-                                      style="background-color: #f3e8f8;">
+                                      style="
+                                        background-color: #efe7df;
+                                        color: #7a6658;">
 
-                                    <i class="bi bi-envelope-fill"
-                                       style="color: #7b2cbf;"></i>
+                                    <i class="bi bi-envelope-fill"></i>
 
                                 </span>
 
                                 <input asp-for="Email"
                                        class="form-control border-0 py-3"
-                                       style="background-color: #faf6fb;"
-                                       placeholder="correo@ejemplo.com" />
+                                       placeholder="correo@empresa.com"
+                                       style="
+                                            background-color: #fcfaf8;
+                                            color: #4b3b32;">
 
                             </div>
 
@@ -83,37 +206,78 @@
                         <div class="mb-4">
 
                             <label asp-for="Password"
-                                   class="form-label fw-semibold text-dark">
+                                   class="form-label fw-semibold mb-3"
+                                   style="color: #5a4a40;">
 
                                 Contraseña
 
                             </label>
 
-                            <div class="input-group shadow-sm rounded-4 overflow-hidden">
+                            <div class="input-group rounded-4 overflow-hidden shadow-sm">
 
                                 <span class="input-group-text border-0 px-4"
-                                      style="background-color: #f3e8f8;">
+                                      style="
+                                        background-color: #efe7df;
+                                        color: #7a6658;">
 
-                                    <i class="bi bi-lock-fill"
-                                       style="color: #d63384;"></i>
+                                    <i class="bi bi-lock-fill"></i>
 
                                 </span>
 
                                 <input asp-for="Password"
                                        type="password"
                                        class="form-control border-0 py-3"
-                                       style="background-color: #faf6fb;"
-                                       placeholder="••••••••" />
+                                       placeholder="••••••••"
+                                       style="
+                                            background-color: #fcfaf8;
+                                            color: #4b3b32;">
 
                             </div>
 
                         </div>
+<div class="mt-4">
 
-                        <!-- BOTON -->
-                        <button class="btn w-100 text-white fw-semibold py-3 rounded-4 shadow-sm border-0"
+    <!-- CHECK -->
+    <div class="form-check mb-3">
+
+        <input class="form-check-input"
+               type="checkbox"
+               id="recordarme">
+
+        <label class="form-check-label ms-1"
+               for="recordarme"
+               style="color: #7a6658;">
+
+            Recordarme
+
+        </label>
+
+    </div>
+
+    <!-- LINK -->
+    <a href="#"
+       style="
+            color: #7a6658;
+            text-decoration: none;
+            font-weight: 500;">
+
+        ¿Olvidaste tu contraseña?
+
+    </a>
+
+</div>
+
+                        <!-- BUTTON -->
+                        <button class="btn w-100 py-3 rounded-4 border-0 fw-semibold shadow-sm"
                                 type="submit"
-                                style="background: linear-gradient(135deg, #7b2cbf, #d63384);
-                                       font-size: 16px;">
+                                style="
+                                    background:
+                                    linear-gradient(
+                                    135deg,
+                                    #8b6f5c,
+                                    #6f5646);
+                                    color: white;
+                                    font-size: 16px;">
 
                             <i class="bi bi-box-arrow-in-right me-2"></i>
                             Ingresar al sistema
@@ -122,29 +286,26 @@
 
                     </form>
 
-                    <!-- USUARIO DEMO -->
-                    <div class="mt-4">
+                    <!-- DEMO -->
+                    <div class="mt-5 text-center">
 
-                        <div class="rounded-4 p-4 text-center"
-                             style="background-color: #f8f0fa;">
+                        <small style="color: #9c8b80;">
 
-                            <small class="text-muted d-block mb-2">
-                                Usuario de prueba
-                            </small>
+                            Usuario demo
 
-                            <div class="fw-semibold"
-                                 style="color: #5a189a;">
+                        </small>
 
-                                admin@umg.com
+                        <div class="fw-semibold mt-2"
+                             style="color: #5a4a40;">
 
-                            </div>
+                            admin@umg.com
 
-                            <div class="fw-bold"
-                                 style="color: #d63384;">
+                        </div>
 
-                                Admin123*
+                        <div class="fw-bold"
+                             style="color: #8b6f5c;">
 
-                            </div>
+                            Admin123*
 
                         </div>
 

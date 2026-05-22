@@ -1,37 +1,319 @@
 @model List<Venta>
-<div class="d-flex justify-content-between align-items-center mb-3">
-<h2>Ventas</h2>
-<a class="btn btn-primary" asp-action="Crear">Nueva venta</a>
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+        <div>
+
+            <h1 class="fw-bold mb-2"
+                style="color: #4b3a30; font-size: 38px;">
+
+                Ventas
+
+            </h1>
+
+            <p class="mb-0"
+               style="color: #8b735f; font-size: 15px;">
+
+                Registro y control general de ventas realizadas
+
+            </p>
+
+        </div>
+
+        <a asp-action="Crear"
+           class="btn border-0 px-4 py-3 rounded-4 fw-semibold shadow-lg"
+           style="background: linear-gradient(135deg, #b08968, #7f5539);
+                  color: white;
+                  min-width: 220px;">
+
+            <i class="bi bi-plus-circle-fill me-2"></i>
+            Nueva Venta
+
+        </a>
+
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+         style="background-color: #fffaf5;">
+
+        <!-- TOP -->
+        <div class="px-5 py-4 d-flex justify-content-between align-items-center flex-wrap gap-3"
+             style="background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+            <div class="d-flex align-items-center">
+
+                <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                     style="width: 70px;
+                            height: 70px;
+                            background: rgba(255,255,255,0.15);">
+
+                    <i class="bi bi-receipt-cutoff"
+                       style="font-size: 30px; color: white;"></i>
+
+                </div>
+
+                <div>
+
+                    <h3 class="fw-bold text-white mb-1">
+                        Historial de Ventas
+                    </h3>
+
+                    <span style="color: #f5ebe0;">
+                        Visualización de ventas, clientes y totales
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="text-end">
+
+                <div class="fw-bold"
+                     style="color: white; font-size: 38px;">
+
+                    @Model.Count
+
+                </div>
+
+                <small style="color: #f5ebe0;">
+                    Ventas registradas
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- BODY -->
+        <div class="p-4">
+
+            <div class="table-responsive">
+
+                @if (!Model.Any())
+                {
+                    <div class="rounded-4 p-5 text-center"
+                         style="background-color: #f5ebe0;">
+
+                        <i class="bi bi-receipt"
+                           style="font-size: 55px; color: #9c6644;"></i>
+
+                        <h4 class="fw-bold mt-4"
+                            style="color: #6b4f3f;">
+
+                            No hay ventas registradas
+
+                        </h4>
+
+                        <p style="color: #8b735f;">
+
+                            Comienza creando una nueva venta en el sistema.
+
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+
+                            <tr style="border-bottom: 1px solid #e8d8cb;">
+
+                                <th class="border-0 py-4"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    NO.
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    FECHA
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    CLIENTE
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    USUARIO
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    TOTAL
+
+                                </th>
+
+                                <th class="border-0 py-4"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    ESTADO
+
+                                </th>
+
+                                <th class="border-0 py-4 text-end"
+                                    style="color: #8b735f; font-size: 13px; letter-spacing: 1px;">
+
+                                    ACCIONES
+
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var venta in Model)
+                            {
+                                <tr style="border-bottom: 1px solid #f1e4d8; transition: 0.3s;">
+
+                                    <!-- NUMERO -->
+                                    <td class="py-4">
+
+                                        <span class="px-3 py-2 rounded-pill fw-semibold"
+                                              style="background-color: #ede0d4;
+                                                     color: #6b4f3f;
+                                                     font-size: 14px;">
+
+                                            @venta.NumeroVenta
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- FECHA -->
+                                    <td class="py-4">
+
+                                        <div class="fw-semibold"
+                                             style="color: #4b3a30;">
+
+                                            @venta.FechaVenta.ToLocalTime().ToString("dd/MM/yyyy")
+
+                                        </div>
+
+                                        <small style="color: #8b735f;">
+
+                                            @venta.FechaVenta.ToLocalTime().ToString("hh:mm tt")
+
+                                        </small>
+
+                                    </td>
+
+                                    <!-- CLIENTE -->
+                                    <td class="py-4">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm"
+                                                 style="width: 48px;
+                                                        height: 48px;
+                                                        background: linear-gradient(135deg, #b08968, #7f5539);
+                                                        color: white;
+                                                        font-weight: bold;">
+
+                                                @((venta.Cliente?.Nombre ?? "C").Substring(0,1).ToUpper())
+
+                                            </div>
+
+                                            <div>
+
+                                                <div class="fw-bold"
+                                                     style="color: #4b3a30;">
+
+                                                    @(venta.Cliente?.Nombre ?? "Consumidor Final")
+
+                                                </div>
+
+                                                <small style="color: #8b735f;">
+                                                    Cliente
+                                                </small>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+                                    <!-- USUARIO -->
+                                    <td class="py-4"
+                                        style="color: #5c4435;">
+
+                                        <i class="bi bi-person-circle me-2"
+                                           style="color: #9c6644;"></i>
+
+                                        @venta.Usuario?.Email
+
+                                    </td>
+
+                                    <!-- TOTAL -->
+                                    <td class="py-4">
+
+                                        <span class="fw-bold"
+                                              style="color: #7f5539; font-size: 17px;">
+
+                                            Q @venta.Total.ToString("N2")
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- ESTADO -->
+                                    <td class="py-4">
+
+                                        <span class="px-3 py-2 rounded-pill fw-semibold"
+                                              style="background-color: #d8f3dc;
+                                                     color: #2d6a4f;">
+
+                                            <i class="bi bi-check-circle-fill me-1"></i>
+                                            @venta.Estado
+
+                                        </span>
+
+                                    </td>
+
+                                    <!-- ACTIONS -->
+                                    <td class="py-4 text-end">
+
+                                        <a class="btn px-4 py-2 rounded-4 fw-semibold border-0 shadow-sm"
+                                           asp-action="Detalle"
+                                           asp-route-id="@venta.Id"
+                                           style="background: linear-gradient(135deg, #b08968, #7f5539);
+                                                  color: white;">
+
+                                            <i class="bi bi-eye-fill me-2"></i>
+                                            Ver
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-<table class="table table-striped table-hover">
-<thead class="table-dark">
-<tr>
-<th>No.</th>
-<th>Fecha</th>
-<th>Cliente</th>
-<th>Usuario</th>
-<th>Total</th>
-<th>Estado</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-@foreach (var venta in Model)
-{
-<tr>
-<td>@venta.NumeroVenta</td>
-<td>@venta.FechaVenta.ToLocalTime()</td>
-<td>@(venta.Cliente?.Nombre ?? "Consumidor Final")</td>
-<td>@venta.Usuario?.Email</td>
-<td>Q @venta.Total</td>
-<td>@venta.Estado</td>
-<td>
-<a class="btn btn-sm btn-success" asp-action="Detalle"
-asp-route-id="@venta.Id">
-Ver
-</a>
-</td>
-</tr>
-}
-</tbody>
-</table>

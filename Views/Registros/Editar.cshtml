@@ -1,43 +1,223 @@
 @model RegistroDinamico
+
 @functions {
-string TipoInput(string tipo)
-{
-return tipo switch
-{
-"numero" => "number",
-"fecha" => "date",
-_ => "text"
-};
+
+    string TipoInput(string tipo)
+    {
+        return tipo switch
+        {
+            "numero" => "number",
+            "fecha" => "date",
+            _ => "text"
+        };
+    }
+
 }
-}
-<h2>Editar registro: @Model.Modulo!.NombreModulo</h2>
-<form asp-action="Editar" method="post" class="card shadow-sm p-4">
-<input type="hidden" name="id" value="@Model.Id" />
-@foreach (var campo in Model.Modulo.EsquemaCampos)
-{
-var valor = Model.Datos.ContainsKey(campo.Key) ? Model.Datos[campo.Key] :
-"";
-<div class="mb-3">
-<label class="form-label">@campo.Value.Etiqueta</label>
-@if (campo.Value.TipoCampo == "booleano")
-{
-<select name="@campo.Key" class="form-select">
-<option value="No" selected="@(valor == "No")">No</option>
-<option value="Sí" selected="@(valor == "Sí")">Sí</option>
-</select>
-}
-else
-{
-<input name="@campo.Key"
-type="@TipoInput(campo.Value.TipoCampo)"
-step="any"
-value="@valor"
-class="form-control"
-required="@campo.Value.Requerido" />
-}
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- HEADER -->
+    <div class="mb-5">
+
+        <h1 class="fw-bold mb-2"
+            style="color: #4b3a30;">
+
+            Editar Registro
+
+        </h1>
+
+        <p style="
+                color: #8b735f;
+                font-size: 15px;">
+
+            Modifica la información del módulo
+            <span class="fw-semibold">
+                @Model.Modulo!.NombreModulo
+            </span>
+
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9 col-lg-10">
+
+            <!-- CARD -->
+            <div class="card border-0 rounded-5 overflow-hidden shadow-lg"
+                 style="
+                    background-color: #fffaf5;">
+
+                <!-- TOP -->
+                <div class="px-5 py-4"
+                     style="
+                        background: linear-gradient(135deg, #9c6644, #7f5539);">
+
+                    <div class="d-flex align-items-center">
+
+                        <!-- ICON -->
+                        <div class="rounded-4 d-flex justify-content-center align-items-center me-4"
+                             style="
+                                width: 75px;
+                                height: 75px;
+                                background: rgba(255,255,255,0.15);">
+
+                            <i class="bi bi-pencil-square"
+                               style="
+                                    font-size: 32px;
+                                    color: white;"></i>
+
+                        </div>
+
+                        <!-- TEXT -->
+                        <div>
+
+                            <h2 class="fw-bold text-white mb-1">
+
+                                Actualizar Registro
+
+                            </h2>
+
+                            <span style="color: #f5ebe0;">
+
+                                Edición dinámica de información registrada
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body p-5">
+
+                    <form asp-action="Editar" method="post">
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.Id" />
+
+                        <div class="row g-4">
+
+                            @foreach (var campo in Model.Modulo.EsquemaCampos)
+                            {
+                                var valor = Model.Datos.ContainsKey(campo.Key)
+                                    ? Model.Datos[campo.Key]
+                                    : "";
+
+                                <div class="col-md-6">
+
+                                    <label class="form-label fw-semibold mb-2"
+                                           style="color: #5c4435;">
+
+                                        @campo.Value.Etiqueta
+
+                                    </label>
+
+                                    @if (campo.Value.TipoCampo == "booleano")
+                                    {
+                                        <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                            <span class="input-group-text border-0 px-4"
+                                                  style="background-color: #efe3d8;">
+
+                                                <i class="bi bi-toggle-on"
+                                                   style="color: #9c6644;"></i>
+
+                                            </span>
+
+                                            <select name="@campo.Key"
+                                                    class="form-select border-0 py-3"
+                                                    style="
+                                                        background-color: #fffdfb;
+                                                        color: #4b3a30;">
+
+                                                <option value="No"
+                                                        selected="@(valor == "No")">
+
+                                                    No
+
+                                                </option>
+
+                                                <option value="Sí"
+                                                        selected="@(valor == "Sí")">
+
+                                                    Sí
+
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-group shadow-sm rounded-4 overflow-hidden">
+
+                                            <span class="input-group-text border-0 px-4"
+                                                  style="background-color: #efe3d8;">
+
+                                                <i class="bi bi-pencil-fill"
+                                                   style="color: #9c6644;"></i>
+
+                                            </span>
+
+                                            <input name="@campo.Key"
+                                                   type="@TipoInput(campo.Value.TipoCampo)"
+                                                   step="any"
+                                                   value="@valor"
+                                                   class="form-control border-0 py-3"
+                                                   style="
+                                                        background-color: #fffdfb;
+                                                        color: #4b3a30;"
+                                                   required="@campo.Value.Requerido" />
+
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- ACTIONS -->
+                        <div class="d-flex justify-content-between align-items-center mt-5 flex-wrap gap-3">
+
+                            <a asp-action="Index"
+                               asp-route-moduloId="@Model.ModuloDinamicoId"
+                               class="btn px-4 py-3 rounded-4 fw-semibold shadow-sm border-0"
+                               style="
+                                    background-color: #ede0d4;
+                                    color: #6b4f3f;">
+
+                                <i class="bi bi-arrow-left-circle me-2"></i>
+                                Cancelar
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn px-5 py-3 rounded-4 fw-bold shadow-lg border-0"
+                                    style="
+                                        background: linear-gradient(135deg, #b08968, #7f5539);
+                                        color: white;">
+
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Guardar Cambios
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-}
-<button class="btn btn-primary" type="submit">Guardar cambios</button>
-<a class="btn btn-secondary" asp-action="Index"
-asp-route-moduloId="@Model.ModuloDinamicoId">Cancelar</a>
-</form>
